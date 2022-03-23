@@ -30,28 +30,71 @@ class UIFunctions(MainWindow):
         global GLOBAL_STATE
         status = GLOBAL_STATE
         if status == False:
-            self.showMaximized()
             GLOBAL_STATE = True
-            self.ui.appMargins.setContentsMargins(0, 0, 0, 0)
+            UIFunctions.maximize_restore_screen(self)
+            self.showMaximized()
+            self.ui.gridLayout.setContentsMargins(0, 0, 0, 0)
             self.ui.maximizeRestoreAppBtn.setToolTip("Restore")
             self.ui.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_restore.png"))
             self.ui.frame_size_grip.hide()
-            self.left_grip.hide()
-            self.right_grip.hide()
-            self.top_grip.hide()
-            self.bottom_grip.hide()
+            
+            #self.left_grip.hide()
+            #self.right_grip.hide()
+            #self.top_grip.hide()
+            #self.bottom_grip.hide()
         else:
             GLOBAL_STATE = False
+            UIFunctions.maximize_restore_screen(self)
             self.showNormal()
             self.resize(self.width()+1, self.height()+1)
-            self.ui.appMargins.setContentsMargins(10, 10, 10, 10)
+            self.ui.gridLayout.setContentsMargins(10, 10, 10, 10)
             self.ui.maximizeRestoreAppBtn.setToolTip("Maximize")
             self.ui.maximizeRestoreAppBtn.setIcon(QIcon(u":/icons/images/icons/icon_maximize.png"))
             self.ui.frame_size_grip.show()
-            self.left_grip.show()
-            self.right_grip.show()
-            self.top_grip.show()
-            self.bottom_grip.show()
+            #self.left_grip.show()
+            #self.right_grip.show()
+            #self.top_grip.show()
+            #self.bottom_grip.show()
+
+    def maximize_restore_screen(self):
+        global GLOBAL_STATE
+        status = GLOBAL_STATE
+        if status == True:
+            self.ui.car_cam.setMinimumSize(QSize(640, 480))
+            self.ui.car_cam.setMaximumSize(QSize(640, 480))
+            self.ui.screen_cam.setMinimumSize(QSize(640, 480))
+            self.ui.screen_cam.setMaximumSize(QSize(640, 480))
+            self.ui.hg_layout.setVerticalSpacing(70)
+
+            self.ui.sd_main_screen.setMinimumSize(QSize(640, 480))
+            self.ui.sd_main_screen.setMaximumSize(QSize(640, 480))
+            self.ui.sd_subscreen1.setMinimumSize(QSize(360, 270))
+            self.ui.sd_subscreen1.setMaximumSize(QSize(360, 270))
+            self.ui.sd_subscreen2.setMinimumSize(QSize(360, 270))
+            self.ui.sd_subscreen2.setMaximumSize(QSize(360, 270))
+            self.ui.sd_message.setMinimumSize(QSize(640, 120))
+            self.ui.sd_message.setMaximumSize(QSize(640, 120))
+            self.ui.verticalLayout_sd2.setSpacing(70)
+            self.ui.verticalLayout_sd2.setContentsMargins(-1, -1, 400, -1)
+            self.ui.verticalLayout_sd1.setContentsMargins(300, -1, -1, -1)
+        else:
+            self.ui.car_cam.setMinimumSize(QSize(320, 240))
+            self.ui.car_cam.setMaximumSize(QSize(320, 240))
+            self.ui.screen_cam.setMinimumSize(QSize(320, 240))
+            self.ui.screen_cam.setMaximumSize(QSize(320, 240))
+            self.ui.hg_layout.setVerticalSpacing(30)
+
+            self.ui.sd_main_screen.setMinimumSize(QSize(320, 240))
+            self.ui.sd_main_screen.setMaximumSize(QSize(320, 240))
+            self.ui.sd_subscreen1.setMinimumSize(QSize(240, 180))
+            self.ui.sd_subscreen1.setMaximumSize(QSize(240, 180))
+            self.ui.sd_subscreen2.setMinimumSize(QSize(240, 180))
+            self.ui.sd_subscreen2.setMaximumSize(QSize(240, 180))
+            self.ui.sd_message.setMinimumSize(QSize(320, 120))
+            self.ui.sd_message.setMaximumSize(QSize(320, 120))
+            self.ui.verticalLayout_sd2.setSpacing(10)
+            self.ui.verticalLayout_sd2.setContentsMargins(-1, -1, 110, -1)
+            self.ui.verticalLayout_sd1.setContentsMargins(80, -1, -1, -1)
 
     # RETURN STATUS
     # ///////////////////////////////////////////////////////////////
@@ -86,64 +129,6 @@ class UIFunctions(MainWindow):
             self.animation.setEndValue(widthExtended)
             self.animation.setEasingCurve(QEasingCurve.InOutQuart)
             self.animation.start()
-
-    # TOGGLE LEFT BOX
-    # ///////////////////////////////////////////////////////////////
-    def toggleLeftBox(self, enable):
-        if enable:
-            # GET WIDTH
-            width = self.ui.extraLeftBox.width()
-            widthRightBox = self.ui.extraRightBox.width()
-            maxExtend = Settings.LEFT_BOX_WIDTH
-            color = Settings.BTN_LEFT_BOX_COLOR
-            standard = 0
-
-            # GET BTN STYLE
-            style = self.ui.toggleLeftBox.styleSheet()
-
-            # SET MAX WIDTH
-            if width == 0:
-                widthExtended = maxExtend
-                # SELECT BTN
-                self.ui.toggleLeftBox.setStyleSheet(style + color)
-                if widthRightBox != 0:
-                    style = self.ui.settingsTopBtn.styleSheet()
-                    self.ui.settingsTopBtn.setStyleSheet(style.replace(Settings.BTN_RIGHT_BOX_COLOR, ''))
-            else:
-                widthExtended = standard
-                # RESET BTN
-                self.ui.toggleLeftBox.setStyleSheet(style.replace(color, ''))
-                
-        UIFunctions.start_box_animation(self, width, widthRightBox, "left")
-
-    # TOGGLE RIGHT BOX
-    # ///////////////////////////////////////////////////////////////
-    def toggleRightBox(self, enable):
-        if enable:
-            # GET WIDTH
-            width = self.ui.extraRightBox.width()
-            widthLeftBox = self.ui.extraLeftBox.width()
-            maxExtend = Settings.RIGHT_BOX_WIDTH
-            color = Settings.BTN_RIGHT_BOX_COLOR
-            standard = 0
-
-            # GET BTN STYLE
-            style = self.ui.settingsTopBtn.styleSheet()
-
-            # SET MAX WIDTH
-            if width == 0:
-                widthExtended = maxExtend
-                # SELECT BTN
-                self.ui.settingsTopBtn.setStyleSheet(style + color)
-                if widthLeftBox != 0:
-                    style = self.ui.toggleLeftBox.styleSheet()
-                    self.ui.toggleLeftBox.setStyleSheet(style.replace(Settings.BTN_LEFT_BOX_COLOR, ''))
-            else:
-                widthExtended = standard
-                # RESET BTN
-                self.ui.settingsTopBtn.setStyleSheet(style.replace(color, ''))
-
-            UIFunctions.start_box_animation(self, widthLeftBox, width, "right")
 
     def start_box_animation(self, left_box_width, right_box_width, direction):
         right_width = 0
@@ -235,13 +220,14 @@ class UIFunctions(MainWindow):
                     self.move(self.pos() + event.globalPos() - self.dragPos)
                     self.dragPos = event.globalPos()
                     event.accept()
+
             self.ui.titleRightInfo.mouseMoveEvent = moveWindow
 
             # CUSTOM GRIPS
-            self.left_grip = CustomGrip(self, Qt.LeftEdge, True)
-            self.right_grip = CustomGrip(self, Qt.RightEdge, True)
-            self.top_grip = CustomGrip(self, Qt.TopEdge, True)
-            self.bottom_grip = CustomGrip(self, Qt.BottomEdge, True)
+            #self.left_grip = CustomGrip(self, Qt.LeftEdge, True)
+            #self.right_grip = CustomGrip(self, Qt.RightEdge, True)
+            #self.top_grip = CustomGrip(self, Qt.TopEdge, True)
+            #self.bottom_grip = CustomGrip(self, Qt.BottomEdge, True)
 
         else:
             self.ui.appMargins.setContentsMargins(0, 0, 0, 0)
@@ -259,8 +245,8 @@ class UIFunctions(MainWindow):
         self.ui.bgApp.setGraphicsEffect(self.shadow)
 
         # RESIZE WINDOW
-        self.sizegrip = QSizeGrip(self.ui.frame_size_grip)
-        self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
+        #self.sizegrip = QSizeGrip(self.ui.frame_size_grip)
+        #self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
 
         # MINIMIZE
         self.ui.minimizeAppBtn.clicked.connect(lambda: self.showMinimized())
@@ -271,12 +257,12 @@ class UIFunctions(MainWindow):
         # CLOSE APPLICATION
         self.ui.closeAppBtn.clicked.connect(lambda: self.close())
 
-    def resize_grips(self):
-        if Settings.ENABLE_CUSTOM_TITLE_BAR:
-            self.left_grip.setGeometry(0, 10, 10, self.height())
-            self.right_grip.setGeometry(self.width() - 10, 10, 10, self.height())
-            self.top_grip.setGeometry(0, 0, self.width(), 10)
-            self.bottom_grip.setGeometry(0, self.height() - 10, self.width(), 10)
+    #def resize_grips(self):
+        #if Settings.ENABLE_CUSTOM_TITLE_BAR:
+            #self.left_grip.setGeometry(0, 10, 10, self.height())
+            #self.right_grip.setGeometry(self.width() - 10, 10, 10, self.height())
+            #self.top_grip.setGeometry(0, 0, self.width(), 10)
+            #self.bottom_grip.setGeometry(0, self.height() - 10, self.width(), 10)
 
     # ///////////////////////////////////////////////////////////////
     # END - GUI DEFINITIONS

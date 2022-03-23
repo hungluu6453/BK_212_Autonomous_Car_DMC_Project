@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainkRGsBW.ui'
+## Form generated from reading UI file 'mainFIoyev.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.4
 ##
@@ -978,54 +978,32 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_18.addWidget(self.selfdriving_label)
 
-        self.sd_horizontalLayout = QHBoxLayout()
-        self.sd_horizontalLayout.setObjectName(u"sd_horizontalLayout")
-        self.verticalLayout_sd1 = QVBoxLayout()
-        self.verticalLayout_sd1.setSpacing(10)
-        self.verticalLayout_sd1.setObjectName(u"verticalLayout_sd1")
-        self.verticalLayout_sd1.setContentsMargins(80, -1, -1, -1)
-        self.sd_main_screen = QLabel(self.selfdriving)
-        self.sd_main_screen.setObjectName(u"sd_main_screen")
-        self.sd_main_screen.setMinimumSize(QSize(320, 240))
-        self.sd_main_screen.setMaximumSize(QSize(320, 240))
-        self.sd_main_screen.setStyleSheet(u"background: #282C34;\n"
-"border: 3px solid #5084B9;\n"
-"border-radius: 5px;")
-        self.sd_main_screen.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_sd1.addWidget(self.sd_main_screen)
-
-        self.sd_message = QLabel(self.selfdriving)
+        self.sd_layout = QFrame(self.selfdriving)
+        self.sd_layout.setObjectName(u"sd_layout")
+        self.sd_layout.setStyleSheet(u"")
+        self.sd_layout.setFrameShape(QFrame.StyledPanel)
+        self.sd_layout.setFrameShadow(QFrame.Raised)
+        self.sd_message = QLabel(self.sd_layout)
         self.sd_message.setObjectName(u"sd_message")
+        self.sd_message.setGeometry(QRect(110, 270, 320, 120))
         self.sd_message.setMinimumSize(QSize(320, 120))
         self.sd_message.setMaximumSize(QSize(320, 120))
         self.sd_message.setStyleSheet(u"background: #E8EEFA;\n"
 "border: 3px solid #5084B9;\n"
 "border-radius: 5px;")
         self.sd_message.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_sd1.addWidget(self.sd_message)
-
-
-        self.sd_horizontalLayout.addLayout(self.verticalLayout_sd1)
-
-        self.verticalLayout_sd2 = QVBoxLayout()
-        self.verticalLayout_sd2.setSpacing(10)
-        self.verticalLayout_sd2.setObjectName(u"verticalLayout_sd2")
-        self.verticalLayout_sd2.setContentsMargins(-1, -1, 110, -1)
-        self.sd_subscreen2 = QLabel(self.selfdriving)
-        self.sd_subscreen2.setObjectName(u"sd_subscreen2")
-        self.sd_subscreen2.setMinimumSize(QSize(240, 180))
-        self.sd_subscreen2.setMaximumSize(QSize(240, 180))
-        self.sd_subscreen2.setStyleSheet(u"background: #282C34;\n"
+        self.sd_main_screen = QLabel(self.sd_layout)
+        self.sd_main_screen.setObjectName(u"sd_main_screen")
+        self.sd_main_screen.setGeometry(QRect(110, 20, 320, 240))
+        self.sd_main_screen.setMinimumSize(QSize(320, 240))
+        self.sd_main_screen.setMaximumSize(QSize(320, 240))
+        self.sd_main_screen.setStyleSheet(u"background: #282C34;\n"
 "border: 3px solid #5084B9;\n"
 "border-radius: 5px;")
-        self.sd_subscreen2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_sd2.addWidget(self.sd_subscreen2)
-
-        self.sd_subscreen1 = QLabel(self.selfdriving)
+        self.sd_main_screen.setAlignment(Qt.AlignCenter)
+        self.sd_subscreen1 = QLabel(self.sd_layout)
         self.sd_subscreen1.setObjectName(u"sd_subscreen1")
+        self.sd_subscreen1.setGeometry(QRect(450, 20, 240, 180))
         sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
@@ -1038,14 +1016,17 @@ class Ui_MainWindow(object):
 "border-radius: 5px;")
         self.sd_subscreen1.setMidLineWidth(0)
         self.sd_subscreen1.setAlignment(Qt.AlignCenter)
+        self.sd_subscreen2 = QLabel(self.sd_layout)
+        self.sd_subscreen2.setObjectName(u"sd_subscreen2")
+        self.sd_subscreen2.setGeometry(QRect(450, 210, 240, 180))
+        self.sd_subscreen2.setMinimumSize(QSize(240, 180))
+        self.sd_subscreen2.setMaximumSize(QSize(240, 180))
+        self.sd_subscreen2.setStyleSheet(u"background: #282C34;\n"
+"border: 3px solid #5084B9;\n"
+"border-radius: 5px;")
+        self.sd_subscreen2.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_sd2.addWidget(self.sd_subscreen1)
-
-
-        self.sd_horizontalLayout.addLayout(self.verticalLayout_sd2)
-
-
-        self.verticalLayout_18.addLayout(self.sd_horizontalLayout)
+        self.verticalLayout_18.addWidget(self.sd_layout)
 
         self.stackedWidget.addWidget(self.selfdriving)
 
@@ -1110,7 +1091,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(2)
         self.stackedWidget_2.setCurrentIndex(0)
 
 
@@ -1150,10 +1131,10 @@ class Ui_MainWindow(object):
         self.screen_cam.setText(QCoreApplication.translate("MainWindow", u"Camera Screen", None))
         self.hg_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
         self.selfdriving_label.setText(QCoreApplication.translate("MainWindow", u"SELF DRVING MODE", None))
-        self.sd_main_screen.setText(QCoreApplication.translate("MainWindow", u"Main Screen", None))
         self.sd_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
-        self.sd_subscreen2.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 2", None))
+        self.sd_main_screen.setText(QCoreApplication.translate("MainWindow", u"Main Screen", None))
         self.sd_subscreen1.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 1", None))
+        self.sd_subscreen2.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 2", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"By: Wanderson M. Pimenta", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.3", None))
     # retranslateUi
