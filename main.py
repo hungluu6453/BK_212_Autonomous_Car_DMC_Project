@@ -25,7 +25,7 @@ from widgets import *
 
 import cv2
 
-#import code.HandGestureCode.HandGesture as hg
+import code.HandGestureCode_v2.HandGesture as hg
 
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
@@ -37,8 +37,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
 
-        #self.Worker1 = Worker1()
-        #self.Worker1.ImageUpdate.connect(self.ImageUpdateSlot)
+        self.Worker1 = Worker1()
+        self.Worker1.ImageUpdate.connect(self.ImageUpdateSlot)
 
         # SET AS GLOBAL WIDGETS
         # ///////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
         # Default full screen
         # ///////////////////////////////////////////////////////////////
 
-        UIFunctions.maximize_restore(self)
+        #UIFunctions.maximize_restore(self)
 
         # BUTTONS CLICK
         # ///////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ class MainWindow(QMainWindow):
             widgets.stackedWidget.setCurrentWidget(widgets.handgesture) # SET PAGE
             UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
-            #self.Worker1.start()
+            self.Worker1.start()
 
         if btnName == "btn_save":
             print("Save BTN clicked!")
@@ -158,25 +158,25 @@ class MainWindow(QMainWindow):
 
 class Worker1(QThread):
 
-    #Hand_Object = hg.HandGesture()
+    Hand_Object = hg.HandGesture()
 
     ImageUpdate = Signal(QImage)
     def run(self):
         self.ThreadActive = True
         
-        #while True:
-            #frame = self.Hand_Object.main()
+        while True:
+            frame = self.Hand_Object.main()
 
             #cv2.imshow('Hand Gesture Recognition', frame)
-            #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-            #image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+            image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
 
-            #Pic = image.scaled(320, 240, Qt.KeepAspectRatio)
+            Pic = image.scaled(320, 240, Qt.KeepAspectRatio)
 
-            #self.ImageUpdate.emit(Pic)
+            self.ImageUpdate.emit(Pic)
 
-        #Hand_Object.cap.release()
+        Hand_Object.cap.release()
     
     def stop(self):
         self.ThreadActive = False
