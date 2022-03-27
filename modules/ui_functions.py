@@ -255,7 +255,7 @@ class UIFunctions(MainWindow):
         self.ui.maximizeRestoreAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
 
         # CLOSE APPLICATION
-        self.ui.closeAppBtn.clicked.connect(lambda: self.close())
+        #self.ui.closeAppBtn.clicked.connect(lambda: self.close())
 
     #def resize_grips(self):
         #if Settings.ENABLE_CUSTOM_TITLE_BAR:

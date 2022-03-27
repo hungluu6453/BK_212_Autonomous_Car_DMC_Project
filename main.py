@@ -17,6 +17,7 @@
 import sys
 import os
 import platform
+import time
 
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
@@ -84,6 +85,7 @@ class MainWindow(QMainWindow):
         widgets.btn_widgets.clicked.connect(self.buttonClick)
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_save.clicked.connect(self.buttonClick)
+        widgets.closeAppBtn.clicked.connect(self.buttonClick)
 
         # SELECT MENU
         # ///////////////////////////////////////////////////////////////
@@ -139,6 +141,16 @@ class MainWindow(QMainWindow):
         if btnName == "btn_save":
             print("Save BTN clicked!")
 
+        if btnName == "closeAppBtn":
+
+            if self.Worker1.ThreadActive:
+                self.Worker1.stop()
+            while not self.Worker1.ReadytoClose:
+                time.sleep(0.1)               
+
+
+            self.close()
+
 
     # RESIZE EVENTS
     # ///////////////////////////////////////////////////////////////
@@ -153,14 +165,16 @@ class MainWindow(QMainWindow):
     def ImageUpdateSlot(self, Image):
         widgets.screen_cam.setPixmap(QPixmap.fromImage(Image))
 
-    def CancelFeed(self):
-        self.Worker1.stop()
-
 class Worker1(QThread):
 
     Hand_Object = hg.HandGesture()
 
     ImageUpdate = Signal(QImage)
+
+    ThreadActive = False
+
+    ReadytoClose = False
+
     def run(self):
         self.ThreadActive = True
         
@@ -176,11 +190,16 @@ class Worker1(QThread):
 
             self.ImageUpdate.emit(Pic)
 
-        Hand_Object.cap.release()
+            if self.ThreadActive == False:
+                self.Hand_Object.cap.release()
+                break
+
+        self.quit()
+
+        self.ReadytoClose = True
     
     def stop(self):
         self.ThreadActive = False
-        self.quit()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

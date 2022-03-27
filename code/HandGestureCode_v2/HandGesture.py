@@ -11,23 +11,70 @@ else:
     # uses current package visibility
     from .helper import *
 
+import os 
+import time
+from datetime import datetime 
+#from serial import Serial
+import socket, threading, sys, traceback, os, time
+
+
+#import serial
+
+"""
+SERIAL = False
+s = None
+if SERIAL:
+    s = serial.Serial(port = 'COM3', baudrate=19200, bytesize = 8, timeout = 1)
+LAN = True
+SERVER_PORT = 10
+rtspSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+LOCAL_HOST, PORT = ("172.20.10.3", SERVER_PORT)
+if LAN:
+    try:
+        rtspSocket.bind((LOCAL_HOST, PORT))
+        rtspSocket.listen(5)
+        (clientConnected, clientAddress) = rtspSocket.accept()
+        print(print("Accepted a connection request from %s:%s"%(clientAddress[0], clientAddress[1])))
+    except:
+        print('Can not open port')"""
+
+
+
 class HandGesture():
-    def __init__(self):
+    def __init__(self, connect_status = False, SERIAL = False, LAN = False):
+        
+        ## Connection 
+        self.connectStatus = connect_status
+        self.SERIAL = SERIAL
+        self.s = None
+        self.LAN = LAN
+        self.SERVER_PORT = 10
+        self.rtspSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.LOCAL_HOST, self.PORT = ("172.20.10.3", self.SERVER_PORT)
+        self.clientConnected = None
+        self.clientAddress = None
+        
+        if self.connectStatus:
+            self.connect()
+
+        ## Output to send to Pi
         self.previous_action_id = 0
         self.current_action_id = 0
         self.auto_mode = False
         self.light_mode = False
 
+        ## Webcam
         self.use_brect = True
         self.cap_width = 320
         self.cap_height = 240
         self.min_detection_confidence  = 0.7
         self.min_tracking_confidence = 0.7
-
         self.cap_device = 0
-        self.cap = cv.VideoCapture(self.cap_device)
+        self.cap = cv.VideoCapture(self.cap_device, cv.CAP_DSHOW)
         self.cap.set(cv.CAP_PROP_FRAME_WIDTH, self.cap_width)
         self.cap.set(cv.CAP_PROP_FRAME_HEIGHT, self.cap_height)
+
+        ## Hand detection
         self.mp_hands = mp.solutions.hands
         self.hands = self.mp_hands.Hands(
         static_image_mode= False,
@@ -35,7 +82,6 @@ class HandGesture():
             min_detection_confidence=self.min_detection_confidence,
             min_tracking_confidence=self.min_tracking_confidence,
         )
-
         self.keypoint_classifier = KeyPointClassifier()
         self.action_list = ["stop", "forward", "backward", "go left", "go right", "spin right", "spin left", "forward faster", "do nothing", "change mode", "change light"]
         self.keypoint_classifier_labels = ["upward fist", "normal fist", "reverse fist", "palm", "reverse palm", "thumb left", "thumb right", "OK", "index up"]
@@ -53,7 +99,7 @@ class HandGesture():
         image.flags.writeable = True
 
         ####################################################################
-        if results.multi_hand_landmarks is not None:
+        if results.multi_hand_landmarks is not None: # if there is a hand
             for hand_landmarks, handedness in zip(results.multi_hand_landmarks,
                                                 results.multi_handedness):
                 # Calculation of rectangle boundaries
@@ -86,7 +132,7 @@ class HandGesture():
                     #keypoint_classifier_labels[hand_sign_id],
                     self.auto_mode
                 )
-        else:
+        else: # if there is no hand
             self.current_action_id = 8 # do nothing
             cv.putText(debug_image, "Detected shape: None", 
                 (10,30), 
@@ -99,7 +145,8 @@ class HandGesture():
         cv.putText(debug_image, "Car Light: " + current_light, (10,90), cv.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 0), 1, cv.LINE_AA)
 
         # SEND TO PI ThE self.CURRENT_ACTION_ID
-        #if not self.auto_mode:
+        if self.connectStatus:
+            self.sendToPi()
 
 
 
@@ -131,11 +178,36 @@ class HandGesture():
             if (self.previous_action_id != 9): # if change mode first time
                 self.auto_mode = not self.auto_mode
             return 9 # change mode
+            #return 8
         elif hand_sign_id == 8: # INDEX UP
             if (self.previous_action_id != 10): # if change light first time
                 self.light_mode = not self.light_mode
             return 10 # change light
+            #return 8
 
+    def adjustSize(self,w,h):
+        self.cap.set(cv.CAP_PROP_FRAME_WIDTH, w)
+        self.cap.set(cv.CAP_PROP_FRAME_HEIGHT, h)
+
+    def connect(self):
+        if self.SERIAL:
+            self.s = serial.Serial(port = 'COM3', baudrate=19200, bytesize = 8, timeout = 1)
+        if self.LAN:
+            try:
+                self.rtspSocket.bind((self.LOCAL_HOST, self.PORT))
+                self.rtspSocket.listen(5)
+                (self.clientConnected, self.clientAddress) = self.rtspSocket.accept()
+                print("Accepted a connection request from %s:%s"%(self.clientAddress[0], self.clientAddress[1]))
+            except:
+                print('Can not open port')
+
+    def sendToPi(self):
+        if self.SERIAL:
+            self.s.write(str.encode(str(self.current_action_id)+'.'))
+            print(self.current_action_id)
+        if self.LAN:
+            self.clientConnected.send(str.encode(str(self.current_action_id)+'.'))
+    
 if __name__ == "__main__":
     Hand_Object = HandGesture()
     while True:
