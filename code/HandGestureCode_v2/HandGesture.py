@@ -20,15 +20,15 @@ import socket, threading, sys, traceback, os, time
 
 #import serial
 
-"""
-SERIAL = False
-s = None
-if SERIAL:
-    s = serial.Serial(port = 'COM3', baudrate=19200, bytesize = 8, timeout = 1)
+
+# SERIAL = False
+# s = None
+# if SERIAL:
+#     s = serial.Serial(port = 'COM3', baudrate=19200, bytesize = 8, timeout = 1)
 LAN = True
 SERVER_PORT = 10
 rtspSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-LOCAL_HOST, PORT = ("172.20.10.3", SERVER_PORT)
+LOCAL_HOST, PORT = ("192.168.43.19", SERVER_PORT)
 if LAN:
     try:
         rtspSocket.bind((LOCAL_HOST, PORT))
@@ -36,7 +36,7 @@ if LAN:
         (clientConnected, clientAddress) = rtspSocket.accept()
         print(print("Accepted a connection request from %s:%s"%(clientAddress[0], clientAddress[1])))
     except:
-        print('Can not open port')"""
+        print('Can not open port')
 
 
 

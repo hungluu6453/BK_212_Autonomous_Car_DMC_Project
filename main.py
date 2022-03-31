@@ -27,6 +27,7 @@ from widgets import *
 import cv2
 
 import code.HandGestureCode_v2.HandGesture as hg
+import code.ObjectDetection.ObjectDetection as od
 
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
@@ -38,8 +39,11 @@ class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
 
-        self.Worker1 = Worker1()
-        self.Worker1.ImageUpdate.connect(self.ImageUpdateSlot)
+        self.HandGesture_Thread = HandGesture_Thread()
+        self.HandGesture_Thread.ImageUpdate.connect(self.ImageUpdate_hg_screen)
+
+        self.ObjectDetection_Thread = ObjectDetection_Thread()
+        self.ObjectDetection_Thread.ImageUpdate.connect(self.ImageUpdate_od_screen)
 
         # SET AS GLOBAL WIDGETS
         # ///////////////////////////////////////////////////////////////
@@ -130,22 +134,26 @@ class MainWindow(QMainWindow):
             widgets.stackedWidget.setCurrentWidget(widgets.selfdriving)
             UIFunctions.resetStyle(self, btnName)
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
+            self.ObjectDetection_Thread.start()
 
         # SHOW NEW PAGE
         if btnName == "btn_new":
             widgets.stackedWidget.setCurrentWidget(widgets.handgesture) # SET PAGE
             UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
-            self.Worker1.start()
+            self.HandGesture_Thread.start()
 
         if btnName == "btn_save":
             print("Save BTN clicked!")
 
         if btnName == "closeAppBtn":
 
-            if self.Worker1.ThreadActive:
-                self.Worker1.stop()
-            while not self.Worker1.ReadytoClose:
+            if self.HandGesture_Thread.ThreadActive:
+                self.HandGesture_Thread.stop()
+            if self.ObjectDetection_Thread.ThreadActive:
+                self.ObjectDetection_Thread.stop()
+                
+            while not self.HandGesture_Thread.ReadytoClose and not self.ObjectDetection_Thread.ReadytoClose:
                 time.sleep(0.1)               
 
 
@@ -162,12 +170,15 @@ class MainWindow(QMainWindow):
         # SET DRAG POS WINDOW
         self.dragPos = event.globalPos()
 
-    def ImageUpdateSlot(self, Image):
+    def ImageUpdate_hg_screen(self, Image):
         widgets.screen_cam.setPixmap(QPixmap.fromImage(Image))
 
-class Worker1(QThread):
+    def ImageUpdate_od_screen(self, Image):
+        widgets.sd_main_screen.setPixmap(QPixmap.fromImage(Image))
 
-    Hand_Object = hg.HandGesture()
+class HandGesture_Thread(QThread):
+
+    Hand_Object = hg.HandGesture(connect_status = True, LAN = True)
 
     ImageUpdate = Signal(QImage)
 
@@ -192,6 +203,42 @@ class Worker1(QThread):
 
             if self.ThreadActive == False:
                 self.Hand_Object.cap.release()
+                break
+
+        self.quit()
+
+        self.ReadytoClose = True
+    
+    def stop(self):
+        self.ThreadActive = False
+
+class ObjectDetection_Thread(QThread):
+
+    ObjectDetection = od.ObjectDetection()
+
+    ImageUpdate = Signal(QImage)
+
+    ThreadActive = False
+
+    ReadytoClose = False
+
+    def run(self):
+        self.ThreadActive = True
+        
+        while True:
+            frame = self.ObjectDetection.main()
+
+            #cv2.imshow('Hand Gesture Recognition', frame)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+            image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+
+            Pic = image.scaled(320, 240, Qt.KeepAspectRatio)
+
+            self.ImageUpdate.emit(Pic)
+
+            if self.ThreadActive == False:
+                self.ObjectDetection.cap.release()
                 break
 
         self.quit()

@@ -1,0 +1,3 @@
+stop_sign
+speed_30_sign
+speed-60_sign
