@@ -16,8 +16,8 @@ target = Executable(
 setup(
     name = "PyDracula",
     version = "1.0",
-    description = "Modern GUI for Python applications",
-    author = "Wanderson M. Pimenta",
+    description = "Autonomous car control applications",
+    author = "CacheHit Team - Ho Chi Minh City University of Technology",
     options = {'build_exe' : {'include_files' : files}},
     executables = [target]
     

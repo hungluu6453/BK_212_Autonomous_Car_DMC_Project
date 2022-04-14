@@ -1,41 +1,91 @@
-# ///////////////////////////////////////////////////////////////
-#
-# BY: WANDERSON M.PIMENTA
-# PROJECT MADE WITH: Qt Designer and PySide6
-# V: 1.0.0
-#
-# This project can be used freely for all uses, as long as they maintain the
-# respective credits only in the Python scripts, any information in the visual
-# interface (GUI) can be modified without any implication.
-#
-# There are limitations on Qt licenses if you want to use your products
-# commercially, I recommend reading them on the official website:
-# https://doc.qt.io/qtforpython/licenses.html
-#
-# ///////////////////////////////////////////////////////////////
-
 # MAIN FILE
 # ///////////////////////////////////////////////////////////////
 from main import *
 
-# WITH ACCESS TO MAIN WINDOW WIDGETS
-# ///////////////////////////////////////////////////////////////
-class AppFunctions(MainWindow):
-    def setThemeHack(self):
-        Settings.BTN_LEFT_BOX_COLOR = "background-color: #495474;"
-        Settings.BTN_RIGHT_BOX_COLOR = "background-color: #495474;"
-        Settings.MENU_SELECTED_STYLESHEET = MENU_SELECTED_STYLESHEET = """
-        border-left: 22px solid qlineargradient(spread:pad, x1:0.034, y1:0, x2:0.216, y2:0, stop:0.499 rgba(255, 121, 198, 255), stop:0.5 rgba(85, 170, 255, 0));
-        background-color: #566388;
-        """
+def convertToQImage(frame):
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        # SET MANUAL STYLES
-        self.ui.lineEdit.setStyleSheet("background-color: #6272a4;")
-        self.ui.pushButton.setStyleSheet("background-color: #6272a4;")
-        self.ui.plainTextEdit.setStyleSheet("background-color: #6272a4;")
-        self.ui.tableWidget.setStyleSheet("QScrollBar:vertical { background: #6272a4; } QScrollBar:horizontal { background: #6272a4; }")
-        self.ui.scrollArea.setStyleSheet("QScrollBar:vertical { background: #6272a4; } QScrollBar:horizontal { background: #6272a4; }")
-        self.ui.comboBox.setStyleSheet("background-color: #6272a4;")
-        self.ui.horizontalScrollBar.setStyleSheet("background-color: #6272a4;")
-        self.ui.verticalScrollBar.setStyleSheet("background-color: #6272a4;")
-        self.ui.commandLinkButton.setStyleSheet("color: #ff79c6;")
+    image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+
+    Pic = image.scaled(320, 240, Qt.KeepAspectRatio)
+
+    return Pic
+
+class HandGesture_Thread(QThread):
+    #def __init__(self, conn):
+        #self.conn = conn
+
+    Hand_Object = hg.HandGesture()
+
+    ImageUpdate = Signal(QImage)
+
+    ThreadActive = False
+    ReadytoClose = False
+
+    def run(self):
+        self.ThreadActive = True
+        
+        while True:
+            hg_image, hg_handsign, hg_signal,  = self.Hand_Object.main()
+
+            self.ImageUpdate.emit(convertToQImage(hg_image))
+
+            #self.conn.send(str.encode(str(hg_signal)+'.'))
+
+            if self.ThreadActive == False:
+                self.Hand_Object.cap.release()
+                break
+
+        self.quit()
+
+        self.ReadytoClose = True
+    
+    def stop(self):
+        self.ThreadActive = False
+
+class SelfDriving_Thread(QThread):
+    #def __init__(self, connection):
+        #self.connection = connection
+
+    ObjectDetection = od.ObjectDetection()
+
+    #LaneFollowing = lf.LaneFollowing()
+
+    od_ImageUpdate = Signal(QImage)
+    #lf_ImageUpdate = Signal(QImage)
+
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+
+    ThreadActive = False
+    ReadytoClose = False
+
+    def run(self):
+        self.ThreadActive = True
+        
+        while True:
+            #frame = self.connection.receive_image()
+
+            _,frame = SelfDriving_Thread.cap.read()
+
+            od_image, od_signal = self.ObjectDetection.run(frame)
+            #lf_image, lf_signal = LaneFollowing.run(frame)
+
+            #cv2.imshow('Hand Gesture Recognition', frame)
+
+            self.od_ImageUpdate.emit(convertToQImage(od_image))
+            #self.lf_ImageUpdate.emit(convertToQImage(lf_image))
+
+            if self.ThreadActive == False:
+                SelfDriving_Thread.cap.release()
+                break
+
+        self.quit()
+
+        self.ReadytoClose = True
+    
+    def stop(self):
+        self.ThreadActive = False
+
+    

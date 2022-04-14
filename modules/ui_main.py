@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainkRGsBW.ui'
-##
-## Created by: Qt User Interface Compiler version 6.2.4
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
 
 from PySide6.QtCore import *
 from PySide6.QtGui import *
@@ -18,8 +9,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(940, 620)
-        MainWindow.setMinimumSize(QSize(940, 620))
+        MainWindow.resize(941, 630)
+        MainWindow.setMinimumSize(QSize(940, 630))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
         font = QFont()
@@ -71,12 +62,11 @@ class Ui_MainWindow(object):
 "}\n"
 "#topLogo {\n"
 "	background-color: rgb(33, 37, 43);\n"
-"	background-image: url(:/images/images/images/PyDracula.png);\n"
 "	background-position: centered;\n"
 "	background-repeat: no-repeat;\n"
 "}\n"
-"#titleLeftApp { font: 63 12pt \"Segoe UI Semibold\"; }\n"
-"#titleLeftDescription { font: 8pt \"Segoe UI\"; color: rgb(189, 147, 249); }\n"
+"#titleLeftApp { font: 63 12pt \"Segoe UI Semibold\"; color: #D8DEE9; }\n"
+"#titleLeftDescription { font: 8pt \"Segoe UI\"; color: #81A1C1; }\n"
 "\n"
 "/* MENUS */\n"
 "#topMenu .QPushButton {	\n"
@@ -113,7 +103,7 @@ class Ui_MainWindow(object):
 "	color: rgb(255, 255, 255);\n"
 "}\n"
 "#leftMenuFrame{\n"
-"	border-top: 3px solid rgb(44, 49, 58);\n"
+"	border-top: 0px solid rgb(44, 49, 58);\n"
 "}\n"
 "\n"
 "/* Toggle Button */\n"
@@ -193,7 +183,7 @@ class Ui_MainWindow(object):
 "	background-color: rgb(33, 37, 43);\n"
 "}\n"
 "#contentBottom{\n"
-"	border-top: 3px solid rgb(44, 49, 58);\n"
+"	border-top: 0px solid rgb(44, 49, 58);\n"
 "}\n"
 "\n"
 "/* Top Buttons */\n"
@@ -553,7 +543,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setContentsMargins(10, 10, 10, 10)
         self.bgApp = QFrame(self.styleSheet)
         self.bgApp.setObjectName(u"bgApp")
-        self.bgApp.setStyleSheet(u"")
+        self.bgApp.setStyleSheet(u"background-color: #3B4252;")
         self.bgApp.setFrameShape(QFrame.NoFrame)
         self.bgApp.setFrameShadow(QFrame.Raised)
         self.appLayout = QHBoxLayout(self.bgApp)
@@ -564,6 +554,7 @@ class Ui_MainWindow(object):
         self.leftMenuBg.setObjectName(u"leftMenuBg")
         self.leftMenuBg.setMinimumSize(QSize(60, 0))
         self.leftMenuBg.setMaximumSize(QSize(60, 16777215))
+        self.leftMenuBg.setStyleSheet(u"background-color: #2E3440;")
         self.leftMenuBg.setFrameShape(QFrame.NoFrame)
         self.leftMenuBg.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.leftMenuBg)
@@ -574,16 +565,9 @@ class Ui_MainWindow(object):
         self.topLogoInfo.setObjectName(u"topLogoInfo")
         self.topLogoInfo.setMinimumSize(QSize(0, 50))
         self.topLogoInfo.setMaximumSize(QSize(16777215, 50))
+        self.topLogoInfo.setStyleSheet(u"background-color: #232730;")
         self.topLogoInfo.setFrameShape(QFrame.NoFrame)
         self.topLogoInfo.setFrameShadow(QFrame.Raised)
-        self.topLogo = QFrame(self.topLogoInfo)
-        self.topLogo.setObjectName(u"topLogo")
-        self.topLogo.setGeometry(QRect(10, 5, 42, 42))
-        self.topLogo.setMinimumSize(QSize(42, 42))
-        self.topLogo.setMaximumSize(QSize(42, 42))
-        self.topLogo.setAutoFillBackground(False)
-        self.topLogo.setFrameShape(QFrame.NoFrame)
-        self.topLogo.setFrameShadow(QFrame.Raised)
         self.titleLeftApp = QLabel(self.topLogoInfo)
         self.titleLeftApp.setObjectName(u"titleLeftApp")
         self.titleLeftApp.setGeometry(QRect(70, 8, 160, 20))
@@ -605,11 +589,19 @@ class Ui_MainWindow(object):
         font2.setItalic(False)
         self.titleLeftDescription.setFont(font2)
         self.titleLeftDescription.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+        self.topLogo = QLabel(self.topLogoInfo)
+        self.topLogo.setObjectName(u"topLogo")
+        self.topLogo.setGeometry(QRect(10, 5, 45, 45))
+        self.topLogo.setStyleSheet(u"padding-bottom: 5px;\n"
+"")
+        self.topLogo.setPixmap(QPixmap(u":/images/images/images/hcmut_small.png"))
+        self.topLogo.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_3.addWidget(self.topLogoInfo)
 
         self.leftMenuFrame = QFrame(self.leftMenuBg)
         self.leftMenuFrame.setObjectName(u"leftMenuFrame")
+        self.leftMenuFrame.setMinimumSize(QSize(0, 0))
         self.leftMenuFrame.setFrameShape(QFrame.NoFrame)
         self.leftMenuFrame.setFrameShadow(QFrame.Raised)
         self.verticalMenuLayout = QVBoxLayout(self.leftMenuFrame)
@@ -663,79 +655,44 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.btn_home)
 
-        self.btn_widgets = QPushButton(self.topMenu)
-        self.btn_widgets.setObjectName(u"btn_widgets")
-        sizePolicy.setHeightForWidth(self.btn_widgets.sizePolicy().hasHeightForWidth())
-        self.btn_widgets.setSizePolicy(sizePolicy)
-        self.btn_widgets.setMinimumSize(QSize(0, 45))
-        self.btn_widgets.setFont(font)
-        self.btn_widgets.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_widgets.setLayoutDirection(Qt.LeftToRight)
-        self.btn_widgets.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-gamepad.png);")
+        self.btn_self_driving = QPushButton(self.topMenu)
+        self.btn_self_driving.setObjectName(u"btn_self_driving")
+        sizePolicy.setHeightForWidth(self.btn_self_driving.sizePolicy().hasHeightForWidth())
+        self.btn_self_driving.setSizePolicy(sizePolicy)
+        self.btn_self_driving.setMinimumSize(QSize(0, 45))
+        self.btn_self_driving.setFont(font)
+        self.btn_self_driving.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_self_driving.setLayoutDirection(Qt.LeftToRight)
+        self.btn_self_driving.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-cursor-move.png);")
 
-        self.verticalLayout_8.addWidget(self.btn_widgets)
+        self.verticalLayout_8.addWidget(self.btn_self_driving)
 
-        self.btn_new = QPushButton(self.topMenu)
-        self.btn_new.setObjectName(u"btn_new")
-        sizePolicy.setHeightForWidth(self.btn_new.sizePolicy().hasHeightForWidth())
-        self.btn_new.setSizePolicy(sizePolicy)
-        self.btn_new.setMinimumSize(QSize(0, 45))
-        self.btn_new.setFont(font)
-        self.btn_new.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_new.setLayoutDirection(Qt.LeftToRight)
-        self.btn_new.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-file.png);")
+        self.btn_hand_gesture = QPushButton(self.topMenu)
+        self.btn_hand_gesture.setObjectName(u"btn_hand_gesture")
+        sizePolicy.setHeightForWidth(self.btn_hand_gesture.sizePolicy().hasHeightForWidth())
+        self.btn_hand_gesture.setSizePolicy(sizePolicy)
+        self.btn_hand_gesture.setMinimumSize(QSize(0, 45))
+        self.btn_hand_gesture.setFont(font)
+        self.btn_hand_gesture.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_hand_gesture.setLayoutDirection(Qt.LeftToRight)
+        self.btn_hand_gesture.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-hand-point-right.png);")
 
-        self.verticalLayout_8.addWidget(self.btn_new)
+        self.verticalLayout_8.addWidget(self.btn_hand_gesture)
 
-        self.btn_save = QPushButton(self.topMenu)
-        self.btn_save.setObjectName(u"btn_save")
-        sizePolicy.setHeightForWidth(self.btn_save.sizePolicy().hasHeightForWidth())
-        self.btn_save.setSizePolicy(sizePolicy)
-        self.btn_save.setMinimumSize(QSize(0, 45))
-        self.btn_save.setFont(font)
-        self.btn_save.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_save.setLayoutDirection(Qt.LeftToRight)
-        self.btn_save.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-save.png)")
+        self.btn_document = QPushButton(self.topMenu)
+        self.btn_document.setObjectName(u"btn_document")
+        sizePolicy.setHeightForWidth(self.btn_document.sizePolicy().hasHeightForWidth())
+        self.btn_document.setSizePolicy(sizePolicy)
+        self.btn_document.setMinimumSize(QSize(0, 45))
+        self.btn_document.setFont(font)
+        self.btn_document.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_document.setLayoutDirection(Qt.LeftToRight)
+        self.btn_document.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-description.png)")
 
-        self.verticalLayout_8.addWidget(self.btn_save)
-
-        self.btn_exit = QPushButton(self.topMenu)
-        self.btn_exit.setObjectName(u"btn_exit")
-        sizePolicy.setHeightForWidth(self.btn_exit.sizePolicy().hasHeightForWidth())
-        self.btn_exit.setSizePolicy(sizePolicy)
-        self.btn_exit.setMinimumSize(QSize(0, 45))
-        self.btn_exit.setFont(font)
-        self.btn_exit.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_exit.setLayoutDirection(Qt.LeftToRight)
-        self.btn_exit.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-x.png);")
-
-        self.verticalLayout_8.addWidget(self.btn_exit)
+        self.verticalLayout_8.addWidget(self.btn_document)
 
 
         self.verticalMenuLayout.addWidget(self.topMenu, 0, Qt.AlignTop)
-
-        self.bottomMenu = QFrame(self.leftMenuFrame)
-        self.bottomMenu.setObjectName(u"bottomMenu")
-        self.bottomMenu.setFrameShape(QFrame.NoFrame)
-        self.bottomMenu.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_9 = QVBoxLayout(self.bottomMenu)
-        self.verticalLayout_9.setSpacing(0)
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
-        self.toggleLeftBox = QPushButton(self.bottomMenu)
-        self.toggleLeftBox.setObjectName(u"toggleLeftBox")
-        sizePolicy.setHeightForWidth(self.toggleLeftBox.sizePolicy().hasHeightForWidth())
-        self.toggleLeftBox.setSizePolicy(sizePolicy)
-        self.toggleLeftBox.setMinimumSize(QSize(0, 45))
-        self.toggleLeftBox.setFont(font)
-        self.toggleLeftBox.setCursor(QCursor(Qt.PointingHandCursor))
-        self.toggleLeftBox.setLayoutDirection(Qt.LeftToRight)
-        self.toggleLeftBox.setStyleSheet(u"background-image: url(:/icons/images/icons/icon_settings.png);")
-
-        self.verticalLayout_9.addWidget(self.toggleLeftBox)
-
-
-        self.verticalMenuLayout.addWidget(self.bottomMenu, 0, Qt.AlignBottom)
 
 
         self.verticalLayout_3.addWidget(self.leftMenuFrame)
@@ -755,6 +712,7 @@ class Ui_MainWindow(object):
         self.contentTopBg.setObjectName(u"contentTopBg")
         self.contentTopBg.setMinimumSize(QSize(0, 50))
         self.contentTopBg.setMaximumSize(QSize(16777215, 50))
+        self.contentTopBg.setStyleSheet(u"background-color: #232730;")
         self.contentTopBg.setFrameShape(QFrame.NoFrame)
         self.contentTopBg.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.contentTopBg)
@@ -799,26 +757,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSpacing(5)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.settingsTopBtn = QPushButton(self.rightButtons)
-        self.settingsTopBtn.setObjectName(u"settingsTopBtn")
-        self.settingsTopBtn.setMinimumSize(QSize(28, 28))
-        self.settingsTopBtn.setMaximumSize(QSize(28, 28))
-        self.settingsTopBtn.setCursor(QCursor(Qt.PointingHandCursor))
-        icon = QIcon()
-        icon.addFile(u":/icons/images/icons/icon_settings.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.settingsTopBtn.setIcon(icon)
-        self.settingsTopBtn.setIconSize(QSize(20, 20))
-
-        self.horizontalLayout_2.addWidget(self.settingsTopBtn)
-
         self.minimizeAppBtn = QPushButton(self.rightButtons)
         self.minimizeAppBtn.setObjectName(u"minimizeAppBtn")
         self.minimizeAppBtn.setMinimumSize(QSize(28, 28))
         self.minimizeAppBtn.setMaximumSize(QSize(28, 28))
         self.minimizeAppBtn.setCursor(QCursor(Qt.PointingHandCursor))
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/images/icons/icon_minimize.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.minimizeAppBtn.setIcon(icon1)
+        icon = QIcon()
+        icon.addFile(u":/icons/images/icons/icon_minimize.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.minimizeAppBtn.setIcon(icon)
         self.minimizeAppBtn.setIconSize(QSize(20, 20))
 
         self.horizontalLayout_2.addWidget(self.minimizeAppBtn)
@@ -835,9 +781,9 @@ class Ui_MainWindow(object):
         font3.setStyleStrategy(QFont.PreferDefault)
         self.maximizeRestoreAppBtn.setFont(font3)
         self.maximizeRestoreAppBtn.setCursor(QCursor(Qt.PointingHandCursor))
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/images/icons/icon_maximize.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.maximizeRestoreAppBtn.setIcon(icon2)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/images/icons/icon_maximize.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.maximizeRestoreAppBtn.setIcon(icon1)
         self.maximizeRestoreAppBtn.setIconSize(QSize(20, 20))
 
         self.horizontalLayout_2.addWidget(self.maximizeRestoreAppBtn)
@@ -847,9 +793,9 @@ class Ui_MainWindow(object):
         self.closeAppBtn.setMinimumSize(QSize(28, 28))
         self.closeAppBtn.setMaximumSize(QSize(28, 28))
         self.closeAppBtn.setCursor(QCursor(Qt.PointingHandCursor))
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/images/icons/icon_close.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.closeAppBtn.setIcon(icon3)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/images/icons/icon_close.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.closeAppBtn.setIcon(icon2)
         self.closeAppBtn.setIconSize(QSize(20, 20))
 
         self.horizontalLayout_2.addWidget(self.closeAppBtn)
@@ -892,7 +838,118 @@ class Ui_MainWindow(object):
         self.home.setObjectName(u"home")
         self.home.setStyleSheet(u"")
         self.verticalLayout_16 = QVBoxLayout(self.home)
+        self.verticalLayout_16.setSpacing(0)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.verticalLayout_16.setContentsMargins(20, 20, 20, 0)
+        self.bklogo = QLabel(self.home)
+        self.bklogo.setObjectName(u"bklogo")
+        self.bklogo.setMinimumSize(QSize(0, 60))
+        self.bklogo.setMaximumSize(QSize(16777215, 50))
+        self.bklogo.setAutoFillBackground(False)
+        self.bklogo.setStyleSheet(u"background-color: #2E3440;\n"
+"border-top-left-radius:10px;\n"
+"border-top-right-radius:10px;\n"
+"border-bottom-right-radius:0px;\n"
+"border-bottom-left-radius:0px;\n"
+"padding-top: 10px")
+        self.bklogo.setPixmap(QPixmap(u":/images/images/images/hcmut_small.png"))
+        self.bklogo.setAlignment(Qt.AlignCenter)
+        self.bklogo.setMargin(0)
+
+        self.verticalLayout_16.addWidget(self.bklogo)
+
+        self.welcome = QLabel(self.home)
+        self.welcome.setObjectName(u"welcome")
+        self.welcome.setMaximumSize(QSize(16777215, 50))
+        self.welcome.setStyleSheet(u"background-color: #2E3440;")
+        self.welcome.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_16.addWidget(self.welcome)
+
+        self.appname = QLabel(self.home)
+        self.appname.setObjectName(u"appname")
+        self.appname.setMaximumSize(QSize(16777215, 60))
+        self.appname.setFont(font)
+        self.appname.setStyleSheet(u"background-color: #2E3440;")
+        self.appname.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
+
+        self.verticalLayout_16.addWidget(self.appname)
+
+        self.appdescription = QLabel(self.home)
+        self.appdescription.setObjectName(u"appdescription")
+        self.appdescription.setMinimumSize(QSize(0, 0))
+        self.appdescription.setStyleSheet(u"background-color: #2E3440;\n"
+"padding-bottom: 15px;\n"
+"")
+        self.appdescription.setTextFormat(Qt.AutoText)
+        self.appdescription.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_16.addWidget(self.appdescription)
+
+        self.home_layout = QHBoxLayout()
+        self.home_layout.setSpacing(0)
+        self.home_layout.setObjectName(u"home_layout")
+        self.teammember = QLabel(self.home)
+        self.teammember.setObjectName(u"teammember")
+        self.teammember.setStyleSheet(u"background-color: #2E3440;\n"
+"border-top-left-radius:0px;\n"
+"border-top-right-radius:0px;\n"
+"border-bottom-right-radius:0px;\n"
+"border-bottom-left-radius:10px;\n"
+"padding-top: 10px;\n"
+"padding-bottom:20px;\n"
+"\n"
+"\n"
+"")
+        self.teammember.setLineWidth(1)
+
+        self.home_layout.addWidget(self.teammember)
+
+        self.howtouse = QLabel(self.home)
+        self.howtouse.setObjectName(u"howtouse")
+        self.howtouse.setMinimumSize(QSize(500, 0))
+        self.howtouse.setStyleSheet(u"background-color: #2E3440;\n"
+"border-top-left-radius:0px;\n"
+"border-top-right-radius:0px;\n"
+"border-bottom-right-radius:10px;\n"
+"border-bottom-left-radius:0px;\n"
+"padding-top: 10px;\n"
+"padding-bottom:10px;\n"
+"padding-left: 10px;\n"
+"")
+
+        self.home_layout.addWidget(self.howtouse)
+
+
+        self.verticalLayout_16.addLayout(self.home_layout)
+
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(-1, 5, -1, -1)
+        self.dark = QLabel(self.home)
+        self.dark.setObjectName(u"dark")
+        self.dark.setMaximumSize(QSize(16777215, 15))
+        self.dark.setStyleSheet(u"padding-right: 5px;")
+
+        self.horizontalLayout_7.addWidget(self.dark)
+
+        self.switch_button = QCheckBox(self.home)
+        self.switch_button.setObjectName(u"switch_button")
+        self.switch_button.setMinimumSize(QSize(0, 0))
+        self.switch_button.setMaximumSize(QSize(60, 20))
+
+        self.horizontalLayout_7.addWidget(self.switch_button)
+
+        self.light = QLabel(self.home)
+        self.light.setObjectName(u"light")
+        self.light.setMaximumSize(QSize(16777215, 15))
+        self.light.setStyleSheet(u"padding-left: 5px;")
+
+        self.horizontalLayout_7.addWidget(self.light)
+
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_7)
+
         self.stackedWidget.addWidget(self.home)
         self.tutorial = QWidget()
         self.tutorial.setObjectName(u"tutorial")
@@ -920,6 +977,7 @@ class Ui_MainWindow(object):
         self.handgesture_label = QLabel(self.handgesture)
         self.handgesture_label.setObjectName(u"handgesture_label")
         self.handgesture_label.setMaximumSize(QSize(16777215, 60))
+        self.handgesture_label.setStyleSheet(u"padding-top:15px;")
         self.handgesture_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_17.addWidget(self.handgesture_label)
@@ -933,33 +991,34 @@ class Ui_MainWindow(object):
         self.car_cam.setObjectName(u"car_cam")
         self.car_cam.setMinimumSize(QSize(320, 240))
         self.car_cam.setMaximumSize(QSize(320, 240))
-        self.car_cam.setStyleSheet(u"background: #282C34;\n"
-"border: 3px solid #5084B9;\n"
+        self.car_cam.setStyleSheet(u"background: #2E3440;\n"
+"border: 3px solid #2E3440;\n"
 "border-radius: 5px;")
         self.car_cam.setAlignment(Qt.AlignCenter)
 
         self.hg_layout.addWidget(self.car_cam, 0, 1, 1, 1)
 
-        self.screen_cam = QLabel(self.handgesture)
-        self.screen_cam.setObjectName(u"screen_cam")
-        self.screen_cam.setMinimumSize(QSize(320, 240))
-        self.screen_cam.setMaximumSize(QSize(320, 240))
-        self.screen_cam.setStyleSheet(u"background: #282C34;\n"
-"border: 3px solid #5084B9;\n"
-"border-radius: 5px;")
-        self.screen_cam.setAlignment(Qt.AlignCenter)
-
-        self.hg_layout.addWidget(self.screen_cam, 0, 0, 1, 1)
-
         self.hg_message = QLabel(self.handgesture)
         self.hg_message.setObjectName(u"hg_message")
         self.hg_message.setMaximumSize(QSize(16777215, 120))
-        self.hg_message.setStyleSheet(u"background: #E8EEFA;\n"
-"border: 3px solid #5084B9;\n"
+        self.hg_message.setStyleSheet(u"background:#D8DEE9;\n"
+"border: 3px solid #2E3440;\n"
 "border-radius: 5px;")
         self.hg_message.setAlignment(Qt.AlignCenter)
 
         self.hg_layout.addWidget(self.hg_message, 1, 0, 1, 2)
+
+        self.screen_cam = QLabel(self.handgesture)
+        self.screen_cam.setObjectName(u"screen_cam")
+        self.screen_cam.setMinimumSize(QSize(320, 240))
+        self.screen_cam.setMaximumSize(QSize(320, 240))
+        self.screen_cam.setStyleSheet(u"background: #2E3440;\n"
+"border: 3px solid #2E3440;\n"
+"border-radius: 5px;")
+        self.screen_cam.setFrameShadow(QFrame.Plain)
+        self.screen_cam.setAlignment(Qt.AlignCenter)
+
+        self.hg_layout.addWidget(self.screen_cam, 0, 0, 1, 1)
 
 
         self.verticalLayout_17.addLayout(self.hg_layout)
@@ -974,57 +1033,51 @@ class Ui_MainWindow(object):
         self.selfdriving_label.setMinimumSize(QSize(0, 60))
         self.selfdriving_label.setMaximumSize(QSize(16777215, 60))
         self.selfdriving_label.setFont(font)
+        self.selfdriving_label.setStyleSheet(u"padding-top:25px;")
         self.selfdriving_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_18.addWidget(self.selfdriving_label)
 
-        self.sd_horizontalLayout = QHBoxLayout()
-        self.sd_horizontalLayout.setObjectName(u"sd_horizontalLayout")
+        self.sd_layout = QFrame(self.selfdriving)
+        self.sd_layout.setObjectName(u"sd_layout")
+        self.sd_layout.setStyleSheet(u"")
+        self.sd_layout.setFrameShape(QFrame.StyledPanel)
+        self.sd_layout.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_6 = QHBoxLayout(self.sd_layout)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.verticalLayout_sd1 = QVBoxLayout()
-        self.verticalLayout_sd1.setSpacing(10)
         self.verticalLayout_sd1.setObjectName(u"verticalLayout_sd1")
         self.verticalLayout_sd1.setContentsMargins(80, -1, -1, -1)
-        self.sd_main_screen = QLabel(self.selfdriving)
+        self.sd_main_screen = QLabel(self.sd_layout)
         self.sd_main_screen.setObjectName(u"sd_main_screen")
         self.sd_main_screen.setMinimumSize(QSize(320, 240))
         self.sd_main_screen.setMaximumSize(QSize(320, 240))
-        self.sd_main_screen.setStyleSheet(u"background: #282C34;\n"
-"border: 3px solid #5084B9;\n"
+        self.sd_main_screen.setStyleSheet(u"background: #2E3440;\n"
+"border: 3px solid #2E3440;\n"
 "border-radius: 5px;")
         self.sd_main_screen.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_sd1.addWidget(self.sd_main_screen)
 
-        self.sd_message = QLabel(self.selfdriving)
+        self.sd_message = QLabel(self.sd_layout)
         self.sd_message.setObjectName(u"sd_message")
         self.sd_message.setMinimumSize(QSize(320, 120))
         self.sd_message.setMaximumSize(QSize(320, 120))
-        self.sd_message.setStyleSheet(u"background: #E8EEFA;\n"
-"border: 3px solid #5084B9;\n"
+        self.sd_message.setStyleSheet(u"background: #D8DEE9;\n"
+"border: 3px solid #2E3440;\n"
 "border-radius: 5px;")
         self.sd_message.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_sd1.addWidget(self.sd_message)
 
 
-        self.sd_horizontalLayout.addLayout(self.verticalLayout_sd1)
+        self.horizontalLayout_6.addLayout(self.verticalLayout_sd1)
 
         self.verticalLayout_sd2 = QVBoxLayout()
         self.verticalLayout_sd2.setSpacing(10)
         self.verticalLayout_sd2.setObjectName(u"verticalLayout_sd2")
-        self.verticalLayout_sd2.setContentsMargins(-1, -1, 110, -1)
-        self.sd_subscreen2 = QLabel(self.selfdriving)
-        self.sd_subscreen2.setObjectName(u"sd_subscreen2")
-        self.sd_subscreen2.setMinimumSize(QSize(240, 180))
-        self.sd_subscreen2.setMaximumSize(QSize(240, 180))
-        self.sd_subscreen2.setStyleSheet(u"background: #282C34;\n"
-"border: 3px solid #5084B9;\n"
-"border-radius: 5px;")
-        self.sd_subscreen2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_sd2.addWidget(self.sd_subscreen2)
-
-        self.sd_subscreen1 = QLabel(self.selfdriving)
+        self.verticalLayout_sd2.setContentsMargins(0, -1, 110, -1)
+        self.sd_subscreen1 = QLabel(self.sd_layout)
         self.sd_subscreen1.setObjectName(u"sd_subscreen1")
         sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy3.setHorizontalStretch(0)
@@ -1033,19 +1086,30 @@ class Ui_MainWindow(object):
         self.sd_subscreen1.setSizePolicy(sizePolicy3)
         self.sd_subscreen1.setMinimumSize(QSize(240, 180))
         self.sd_subscreen1.setMaximumSize(QSize(240, 180))
-        self.sd_subscreen1.setStyleSheet(u"background: #282C34;\n"
-"border: 3px solid #5084B9;\n"
+        self.sd_subscreen1.setStyleSheet(u"background: #2E3440;\n"
+"border: 3px solid #2E3440;\n"
 "border-radius: 5px;")
         self.sd_subscreen1.setMidLineWidth(0)
         self.sd_subscreen1.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_sd2.addWidget(self.sd_subscreen1)
 
+        self.sd_subscreen2 = QLabel(self.sd_layout)
+        self.sd_subscreen2.setObjectName(u"sd_subscreen2")
+        self.sd_subscreen2.setMinimumSize(QSize(240, 180))
+        self.sd_subscreen2.setMaximumSize(QSize(240, 180))
+        self.sd_subscreen2.setStyleSheet(u"background: #2E3440;\n"
+"border: 3px solid #2E3440;\n"
+"border-radius: 5px;")
+        self.sd_subscreen2.setAlignment(Qt.AlignCenter)
 
-        self.sd_horizontalLayout.addLayout(self.verticalLayout_sd2)
+        self.verticalLayout_sd2.addWidget(self.sd_subscreen2)
 
 
-        self.verticalLayout_18.addLayout(self.sd_horizontalLayout)
+        self.horizontalLayout_6.addLayout(self.verticalLayout_sd2)
+
+
+        self.verticalLayout_18.addWidget(self.sd_layout)
 
         self.stackedWidget.addWidget(self.selfdriving)
 
@@ -1110,7 +1174,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
 
 
@@ -1119,20 +1183,15 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.titleLeftApp.setText(QCoreApplication.translate("MainWindow", u"PyDracula", None))
-        self.titleLeftDescription.setText(QCoreApplication.translate("MainWindow", u"Modern GUI / Flat Style", None))
+        self.titleLeftApp.setText(QCoreApplication.translate("MainWindow", u"Genesis", None))
+        self.titleLeftDescription.setText(QCoreApplication.translate("MainWindow", u"Autonomous car system", None))
+        self.topLogo.setText("")
         self.toggleButton.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
         self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.btn_widgets.setText(QCoreApplication.translate("MainWindow", u"Widgets", None))
-        self.btn_new.setText(QCoreApplication.translate("MainWindow", u"New", None))
-        self.btn_save.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
-        self.toggleLeftBox.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
-        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"PyDracula APP - Theme with colors based on Dracula for Python.", None))
-#if QT_CONFIG(tooltip)
-        self.settingsTopBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Settings", None))
-#endif // QT_CONFIG(tooltip)
-        self.settingsTopBtn.setText("")
+        self.btn_self_driving.setText(QCoreApplication.translate("MainWindow", u"Self Driving Mode", None))
+        self.btn_hand_gesture.setText(QCoreApplication.translate("MainWindow", u"Hand Gesture Mode", None))
+        self.btn_document.setText(QCoreApplication.translate("MainWindow", u"Document", None))
+        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
 #if QT_CONFIG(tooltip)
         self.minimizeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Minimize", None))
 #endif // QT_CONFIG(tooltip)
@@ -1145,16 +1204,25 @@ class Ui_MainWindow(object):
         self.closeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
-        self.handgesture_label.setText(QCoreApplication.translate("MainWindow", u"HAND GESTURE MODE", None))
+        self.bklogo.setText("")
+        self.welcome.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:24pt; color:#d8dee9;\">Welcome to</span></p></body></html>", None))
+        self.appname.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-family:'Copperplate'; font-size:36pt; font-weight:700; color:#81a1c1;\">Genesis</span></p></body></html>", None))
+        self.appdescription.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; color:#d8dee9;\">----------------------------------------</span></p><p align=\"center\"><span style=\" color:#eceff4;\">A mecanum car system integrated with </span></p><p align=\"center\"><span style=\" color:#eceff4;\">lane following, object detection and hand gesture control features</span></p></body></html>", None))
+        self.teammember.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:700; color:#d8dee9;\">Team CacheHit</span></p><p align=\"center\"><span style=\" font-size:8pt; color:#eceff4;\">Huynh Minh Tri</span></p><p align=\"center\"><span style=\" font-size:8pt; color:#eceff4;\">Dang Cao Cuong</span></p><p align=\"center\"><span style=\" font-size:8pt; color:#eceff4;\">Quach Dang Giang</span></p><p align=\"center\"><span style=\" font-size:8pt; color:#eceff4;\">Tran Nhat Tan</span></p><p align=\"center\"><span style=\" font-size:8pt; color:#eceff4;\">Luu Chan Hung</span></p></body></html>", None))
+        self.howtouse.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:700; color:#d8dee9;\">Simple Guide</span></p><p><img src=\":/icons/images/icons/cil-cursor-move.png\"/><span style=\" font-weight:700; font-style:italic; color:#eceff4;\">Self-driving mode</span><span style=\" font-weight:700; color:#eceff4;\">: </span><span style=\" color:#eceff4;\">Sit back and let's the car be the driver itself</span></p><p><img src=\":/icons/images/icons/cil-hand-point-right.png\"/><span style=\" font-weight:700; font-style:italic; color:#eceff4;\">Hand-gesture mode</span><span style=\" font-weight:700; color:#eceff4;\">: </span><span style=\" color:#eceff4;\">Control your car by a set of hand gestures</span></p><p><img src=\":/icons/images/icons/cil-description.png\"/><span style=\" font-weight:700; font-style:italic; color:#eceff4;\">Tutorial</span><span style=\" font-weight:700; color:#eceff4;\">: </span><span style=\" color:#eceff4;\">Learn how each mode works ?</span></p></body></html>", None))
+        self.dark.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\">DARK</p></body></html>", None))
+        self.switch_button.setText("")
+        self.light.setText(QCoreApplication.translate("MainWindow", u"LIGHT", None))
+        self.handgesture_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:18pt; font-weight:700; color:#eceff4;\">HAND GESTURE MODE</span></p></body></html>", None))
         self.car_cam.setText(QCoreApplication.translate("MainWindow", u"Car Screen", None))
-        self.screen_cam.setText(QCoreApplication.translate("MainWindow", u"Camera Screen", None))
         self.hg_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
-        self.selfdriving_label.setText(QCoreApplication.translate("MainWindow", u"SELF DRVING MODE", None))
+        self.screen_cam.setText(QCoreApplication.translate("MainWindow", u"Camera Screen", None))
+        self.selfdriving_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:18pt; font-weight:700; color:#eceff4;\">SELF DRVING MODE</span></p></body></html>", None))
         self.sd_main_screen.setText(QCoreApplication.translate("MainWindow", u"Main Screen", None))
         self.sd_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
-        self.sd_subscreen2.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 2", None))
         self.sd_subscreen1.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 1", None))
-        self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"By: Wanderson M. Pimenta", None))
-        self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.3", None))
+        self.sd_subscreen2.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 2", None))
+        self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"By: Team CacheHit - Ho Chi Minh City University of Technology", None))
+        self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.0", None))
     # retranslateUi
 
