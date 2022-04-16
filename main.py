@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
 
 		widgets.stackedWidget.setCurrentWidget(widgets.home)
 
-		#UIFunctions.maximize_restore(self)
+		UIFunctions.maximize_restore(self)
 
 		widgets.btn_home.setStyleSheet(UIFunctions.selectMenu(widgets.btn_home.styleSheet()))
 
@@ -50,13 +50,13 @@ class MainWindow(QMainWindow):
 		self.show()
 	 
 	def initThread(self):
-		#self.connection = receiver.Receiver("",10)
+		self.connection = receiver.Receiver("",10,20)
 		#print("connected")
-		#self.HandGesture_Thread = HandGesture_Thread(self.connection.conn)
+		self.HandGesture_Thread = HandGesture_Thread(self.connection)
 		#self.ObjectDetection_Thread = SelfDrving_Thread(self.connection)
 
-		self.HandGesture_Thread = HandGesture_Thread()
-		self.ObjectDetection_Thread = SelfDriving_Thread()
+		#self.HandGesture_Thread = HandGesture_Thread()
+		#self.ObjectDetection_Thread = SelfDriving_Thread()
 
 	def connectButton(self):
 		widgets.toggleButton.clicked.connect(lambda: UIFunctions.toggleMenu(self, True))
@@ -68,7 +68,9 @@ class MainWindow(QMainWindow):
 		widgets.closeAppBtn.clicked.connect(self.buttonClick)
 
 		self.HandGesture_Thread.ImageUpdate.connect(self.ImageUpdate_hg_screen)
-		self.ObjectDetection_Thread.od_ImageUpdate.connect(self.ImageUpdate_od_screen)
+		self.HandGesture_Thread.TextUpdate.connect(self.TextUpdate_hg_screen)
+		self.HandGesture_Thread.CamUpdate.connect(self.CamUpdate_hg_screen)
+		#self.ObjectDetection_Thread.od_ImageUpdate.connect(self.ImageUpdate_od_screen)
 		#self.ObjectDetection_Thread.lf_ImageUpdate.connect(self.ImageUpdate_lf_screen)
 
 	def buttonClick(self):
@@ -84,10 +86,11 @@ class MainWindow(QMainWindow):
 
 		# SHOW WIDGETS PAGE
 		if btnName == "btn_self_driving":
-			widgets.stackedWidget.setCurrentWidget(widgets.selfdriving)
-			UIFunctions.resetStyle(self, btnName)
-			btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
-			self.ObjectDetection_Thread.start()
+			#widgets.stackedWidget.setCurrentWidget(widgets.selfdriving)
+			#UIFunctions.resetStyle(self, btnName)
+			#btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
+			#self.ObjectDetection_Thread.start()
+			pass
 
 		# SHOW NEW PAGE
 		if btnName == "btn_hand_gesture":
@@ -97,19 +100,23 @@ class MainWindow(QMainWindow):
 			self.HandGesture_Thread.start()
 
 		if btnName == "btn_document":
-			widgets.stackedWidget.setCurrentWidget(widgets.tutorial) # SET PAGE
-			UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
-			btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
+			#widgets.stackedWidget.setCurrentWidget(widgets.tutorial) # SET PAGE
+			#UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
+			#btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
+			pass
 
 		if btnName == "closeAppBtn":
 			if self.HandGesture_Thread.ThreadActive:
 				self.HandGesture_Thread.stop()
-			if self.ObjectDetection_Thread.ThreadActive:
-				self.ObjectDetection_Thread.stop()
+			#if self.ObjectDetection_Thread.ThreadActive:
+				#self.ObjectDetection_Thread.stop()
 				
-			while not self.HandGesture_Thread.ReadytoClose and not self.ObjectDetection_Thread.ReadytoClose:
-				time.sleep(0.1)               
+			#while not self.HandGesture_Thread.ReadytoClose and not self.ObjectDetection_Thread.ReadytoClose:
+				#time.sleep(0.1)               
 
+
+			while not self.HandGesture_Thread.ReadytoClose:
+				time.sleep(0.1) 
 
 			self.close()
 
@@ -126,6 +133,12 @@ class MainWindow(QMainWindow):
 	def ImageUpdate_lf_screen(self, Image):
 		widgets.sd_subscreen1.setPixmap(QPixmap.fromImage(Image))
 
+	def TextUpdate_hg_screen(self, text):
+		widgets.hg_message.setText(text)
+
+	def CamUpdate_hg_screen(self, Image):
+		widgets.car_cam.setPixmap(QPixmap.fromImage(Image))
+
 	def SwitchMode(self):
 		widgets.bgApp.setStyleSheet(u"background-color: #ECEFF4;")
 		widgets.leftMenuBg.setStyleSheet(u"background-color: #c0c6d1;")
@@ -134,6 +147,8 @@ class MainWindow(QMainWindow):
 		widgets.label.setStyleSheet(u"background-color: #c0c6d1; color: #2E3440;")
 		widgets.howtouse.setStyleSheet(u"background-color: #c0c6d1; color: #2E3440;")
 		widgets.teammember.setStyleSheet(u"background-color: #c0c6d1; color: #2E3440;")
+
+
 
 if __name__ == "__main__":
 	app = QApplication(sys.argv)

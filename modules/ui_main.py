@@ -976,7 +976,7 @@ class Ui_MainWindow(object):
         self.handgesture_label = QLabel(self.handgesture)
         self.handgesture_label.setObjectName(u"handgesture_label")
         self.handgesture_label.setMaximumSize(QSize(16777215, 60))
-        self.handgesture_label.setStyleSheet(u"padding-top:15px;")
+        self.handgesture_label.setStyleSheet(u"padding-top:15px; font-size: 30px;")
         self.handgesture_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_17.addWidget(self.handgesture_label)
@@ -1002,7 +1002,7 @@ class Ui_MainWindow(object):
         self.hg_message.setMaximumSize(QSize(16777215, 120))
         self.hg_message.setStyleSheet(u"background:#D8DEE9;\n"
 "border: 3px solid #2E3440;\n"
-"border-radius: 5px;")
+"border-radius: 5px; color: #2E3440; font-size: 30px;")
         self.hg_message.setAlignment(Qt.AlignCenter)
 
         self.hg_layout.addWidget(self.hg_message, 1, 0, 1, 2)

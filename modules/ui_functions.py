@@ -196,7 +196,7 @@ class UIFunctions(MainWindow):
         self.ui.bgApp.setGraphicsEffect(self.shadow)
 
         # MINIMIZE
-        self.ui.minimizeAppBtn.clicked.connect(lambda: self.showMinimized())
+        self.ui.minimizeAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
 
         # MAXIMIZE/RESTORE
         self.ui.maximizeRestoreAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
