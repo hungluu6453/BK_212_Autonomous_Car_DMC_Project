@@ -37,13 +37,10 @@ def calc_landmark_list(image, landmarks):
     image_width, image_height = image.shape[1], image.shape[0]
 
     landmark_point = []
-
-    # キーポイント
     for _, landmark in enumerate(landmarks.landmark):
         landmark_x = min(int(landmark.x * image_width), image_width - 1)
         landmark_y = min(int(landmark.y * image_height), image_height - 1)
         # landmark_z = landmark.z
-
         landmark_point.append([landmark_x, landmark_y])
 
     return landmark_point
@@ -51,7 +48,6 @@ def calc_landmark_list(image, landmarks):
 def pre_process_landmark(landmark_list):
     temp_landmark_list = copy.deepcopy(landmark_list)
 
-    # 相対座標に変換
     base_x, base_y = 0, 0
     for index, landmark_point in enumerate(temp_landmark_list):
         if index == 0:
@@ -60,11 +56,9 @@ def pre_process_landmark(landmark_list):
         temp_landmark_list[index][0] = temp_landmark_list[index][0] - base_x
         temp_landmark_list[index][1] = temp_landmark_list[index][1] - base_y
 
-    # 1次元リストに変換
     temp_landmark_list = list(
         itertools.chain.from_iterable(temp_landmark_list))
 
-    # 正規化
     max_value = max(list(map(abs, temp_landmark_list)))
 
     def normalize_(n):
@@ -79,7 +73,6 @@ def pre_process_point_history(image, point_history):
 
     temp_point_history = copy.deepcopy(point_history)
 
-    # 相対座標に変換
     base_x, base_y = 0, 0
     for index, point in enumerate(temp_point_history):
         if index == 0:
@@ -90,16 +83,14 @@ def pre_process_point_history(image, point_history):
         temp_point_history[index][1] = (temp_point_history[index][1] -
                                         base_y) / image_height
 
-    # 1次元リストに変換
     temp_point_history = list(
         itertools.chain.from_iterable(temp_point_history))
 
     return temp_point_history
 
 def draw_landmarks(image, landmark_point):
-    # 接続線
     if len(landmark_point) > 0:
-        # 親指
+
         cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[3]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[3]),
@@ -109,7 +100,7 @@ def draw_landmarks(image, landmark_point):
         cv.line(image, tuple(landmark_point[3]), tuple(landmark_point[4]),
                 (255, 255, 255), 2)
 
-        # 人差指
+
         cv.line(image, tuple(landmark_point[5]), tuple(landmark_point[6]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[5]), tuple(landmark_point[6]),
@@ -123,7 +114,7 @@ def draw_landmarks(image, landmark_point):
         cv.line(image, tuple(landmark_point[7]), tuple(landmark_point[8]),
                 (255, 255, 255), 2)
 
-        # 中指
+
         cv.line(image, tuple(landmark_point[9]), tuple(landmark_point[10]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[9]), tuple(landmark_point[10]),
@@ -137,7 +128,7 @@ def draw_landmarks(image, landmark_point):
         cv.line(image, tuple(landmark_point[11]), tuple(landmark_point[12]),
                 (255, 255, 255), 2)
 
-        # 薬指
+
         cv.line(image, tuple(landmark_point[13]), tuple(landmark_point[14]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[13]), tuple(landmark_point[14]),
@@ -151,7 +142,7 @@ def draw_landmarks(image, landmark_point):
         cv.line(image, tuple(landmark_point[15]), tuple(landmark_point[16]),
                 (255, 255, 255), 2)
 
-        # 小指
+
         cv.line(image, tuple(landmark_point[17]), tuple(landmark_point[18]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[17]), tuple(landmark_point[18]),
@@ -165,7 +156,7 @@ def draw_landmarks(image, landmark_point):
         cv.line(image, tuple(landmark_point[19]), tuple(landmark_point[20]),
                 (255, 255, 255), 2)
 
-        # 手の平
+
         cv.line(image, tuple(landmark_point[0]), tuple(landmark_point[1]),
                 (0, 0, 0), 6)
         cv.line(image, tuple(landmark_point[0]), tuple(landmark_point[1]),
@@ -195,89 +186,88 @@ def draw_landmarks(image, landmark_point):
         cv.line(image, tuple(landmark_point[17]), tuple(landmark_point[0]),
                 (255, 255, 255), 2)
 
-    # キーポイント
     for index, landmark in enumerate(landmark_point):
-        if index == 0:  # 手首1
+        if index == 0:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 1:  # 手首2
+        if index == 1:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 2:  # 親指：付け根
+        if index == 2:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 3:  # 親指：第1関節
+        if index == 3:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 4:  # 親指：指先
+        if index == 4:  
             cv.circle(image, (landmark[0], landmark[1]), 8, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 8, (0, 0, 0), 1)
-        if index == 5:  # 人差指：付け根
+        if index == 5:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 6:  # 人差指：第2関節
+        if index == 6:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 7:  # 人差指：第1関節
+        if index == 7:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 8:  # 人差指：指先
+        if index == 8:  
             cv.circle(image, (landmark[0], landmark[1]), 8, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 8, (0, 0, 0), 1)
-        if index == 9:  # 中指：付け根
+        if index == 9:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 10:  # 中指：第2関節
+        if index == 10:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 11:  # 中指：第1関節
+        if index == 11:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 12:  # 中指：指先
+        if index == 12:  
             cv.circle(image, (landmark[0], landmark[1]), 8, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 8, (0, 0, 0), 1)
-        if index == 13:  # 薬指：付け根
+        if index == 13: 
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 14:  # 薬指：第2関節
+        if index == 14:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 15:  # 薬指：第1関節
+        if index == 15:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 16:  # 薬指：指先
+        if index == 16:  
             cv.circle(image, (landmark[0], landmark[1]), 8, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 8, (0, 0, 0), 1)
-        if index == 17:  # 小指：付け根
+        if index == 17: 
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 18:  # 小指：第2関節
+        if index == 18:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 19:  # 小指：第1関節
+        if index == 19:  
             cv.circle(image, (landmark[0], landmark[1]), 5, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 5, (0, 0, 0), 1)
-        if index == 20:  # 小指：指先
+        if index == 20:  
             cv.circle(image, (landmark[0], landmark[1]), 8, (255, 255, 255),
                       -1)
             cv.circle(image, (landmark[0], landmark[1]), 8, (0, 0, 0), 1)
@@ -286,7 +276,6 @@ def draw_landmarks(image, landmark_point):
 
 def draw_bounding_rect(use_brect, image, brect):
     if use_brect:
-        # 外接矩形
         cv.rectangle(image, (brect[0], brect[1]), (brect[2], brect[3]),
                      (0, 0, 0), 1)
 
@@ -334,10 +323,7 @@ def draw_point_history(image, point_history):
 class KeyPointClassifier(object):
     def __init__(
         self,
-        #model_path='model/keypoint_classifier/keypoint_classifier.tflite',
-        #model_path = 'gen_model/landmark.tflite',
         model_path = 'code/HandGesture/gen_model/landmark.tflite',
-        #model_path = 'F:/Hung Luu/BK_19_22/3_Junior/212/DMC/App Design/Version 1/code/HandGestureCode_v2/gen_model/landmark.tflite',
         num_threads=1,
     ):
         self.interpreter = tf.lite.Interpreter(model_path=model_path,
@@ -368,9 +354,7 @@ class KeyPointClassifier(object):
 class PointHistoryClassifier(object):
     def __init__(
         self,
-        #model_path='gen_model/point_history.tflite',
         model_path='code/HandGesture/gen_model/point_history.tflite',
-        #model_path = 'F:/Hung Luu/BK_19_22/3_Junior/212/DMC/App Design/Version 1/code/HandGestureCode_v2/gen_model/point_history.tflite',
         score_th=0.5,
         invalid_value=0,
         num_threads=1,
@@ -412,11 +396,6 @@ class PointHistoryClassifier(object):
 
 
 def draw_info(image, mode, number = 0):
-    #cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
-               #1.0, (0, 0, 0), 4, cv.LINE_AA)
-    #cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
-               #1.0, (255, 255, 255), 2, cv.LINE_AA)
-
     mode_string = ['Logging Landmarks', 'Logging Point History']
     if 1 <= mode <= 2:
         cv.putText(image, "MODE:" + mode_string[mode - 1], (10, 90),
