@@ -89,8 +89,6 @@ There are 2 main mode: Autonomous mode and User Mode. In Autonomous Mode, Raspbe
 ## Setting up environment with Anaconda
   1. Install [`miniconda(Python3)`](https://conda.io/miniconda.html) on your computer
   2. Create `auto-car` environment with all necessary libraries for this project
-     ```conda env create -f environment.yml```
-     or,
      ```pip install -r requrement.txt```
      
   3. Activate `auto-car` environment
