@@ -80,10 +80,10 @@ class HandGesture():
             min_tracking_confidence=self.min_tracking_confidence,
         )
         self.keypoint_classifier = KeyPointClassifier()
-        self.action_list = ["stop", "forward", "backward", "go right", "go left", "spin right", "spin left", "forward faster", "do nothing", "diagonal left", "diagonal right", "change mode", "change light"]
+        self.action_list = ["stop", "forward", "backward", "go right", "go left", "spin left", "spin right", "forward faster", "do nothing", "diagonal left", "diagonal right", "change mode", "change light"]
         self.keypoint_classifier_labels = ["upward fist", "normal fist", "reverse fist", "close palm", "reverse palm", "thumb left", "thumb right", "OK", "index up"]
         self.printsen = ["Car is staying still 🛑", 
-        "Car is moving forward at normal speed ⬆️", "Car is moving backward ⬇️", "Car is moving right ➡️", "Car is moving left ⬅️", "Car is spinning right ↩️", "Car is spinning left ↪️", "Car is moving forward at fast speed ⬆️⬆️", "Car is doing nothing", "Car is moving diagonally left ↖️", "Car is moving diagonally right ↗️", "Car is changing mode", "Car is changing light"]
+        "Car is moving forward at normal speed ⬆️", "Car is moving backward ⬇️", "Car is moving right ➡️", "Car is moving left ⬅️","Car is spinning left ↪️", "Car is spinning right ↩️", "Car is moving forward at fast speed ⬆️⬆️", "Car is doing nothing", "Car is moving diagonally left ↖️", "Car is moving diagonally right ↗️", "Car is changing mode", "Car is changing light"]
         #self.printsen = ["Car is staying still", "Car is moving forward at normal speed", "Car is moving backward", "Car is moving right", "Car is moving left", "Car is spinning right", "Car is spinning left", "Car is moving forward at fast speed", "Car is doing nothing", "Car is moving diagonally left", "Car is moving diagonally right", "Car is changing mode", "Car is changing light"]
         #self.keypoint_classifier_labels = ["upward fist", "normal fist", "reverse fist", "close palm", "reverse palm", "thumb left", "thumb right", "OK", "index up", "open palm"]
 

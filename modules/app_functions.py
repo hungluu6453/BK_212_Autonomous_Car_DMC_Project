@@ -12,137 +12,162 @@ import struct ## new
 import zlib
 from PIL import Image, ImageOps
 
-def convertToQImage(frame):
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+class AppFunction():
+    connection = None
+    data = b""
+    payload_size = struct.calcsize(">L")
 
-    image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+    hg_thread = False
+    sd_thread = False
 
-    #Pic = image.scaled(320, 240, Qt.KeepAspectRatio)
-    Pic = image.scaled(640, 480, Qt.KeepAspectRatio)
+    hg_size = [320,240]
+    sd_main_size = [320,240]
+    sd_sub_size = [320,240]
 
-    return Pic
+    def __init__(self):
+        if AppFunction.connection is None:
+            AppFunction.connection = AppFunction.connect(15, 25)
+            
 
-class HandGesture_Thread(QThread):
-    def __init__(self, connection):
-        super().__init__()
-        self.connection = connection
+    def connect(PORT_send,PORT_receive):
+        socket_send = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        socket_send.bind(("",PORT_send))
 
+        socket_receive = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        socket_receive.bind(("",PORT_receive))
+
+        print("waiting")
+
+        socket_send.listen(10)
+        conn_send,addr_send = socket_send.accept()
+
+        print("send accepted")
+
+        socket_receive.listen(10)
+        conn_receive,addr_receive = socket_receive.accept()
+
+        print("receive accepted")
+
+        return conn_send,conn_receive
+
+    def receive_image():
+        while len(AppFunction.data) < AppFunction.payload_size:
+            AppFunction.data += AppFunction.connection[1].recv(4096)
+        packed_msg_size = AppFunction.data[:AppFunction.payload_size]
+        AppFunction.data = AppFunction.data[AppFunction.payload_size:]
+        msg_size = struct.unpack(">L", packed_msg_size)[0]
+        while len(AppFunction.data) < msg_size:
+            AppFunction.data += AppFunction.connection[1].recv(4096)
+        frame_data = AppFunction.data[:msg_size]
+        AppFunction.data = AppFunction.data[msg_size:]
+        frame=pickle.loads(frame_data, fix_imports=True, encoding="bytes")
+        frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
+        #print("received")
+        return frame
+
+    def send_signal(signal):
+        AppFunction.connection[0].send(str.encode(str(signal)+'.'))
+        #print("sent")
+
+    def convertToQImage(frame, width, height):
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        image = QImage(frame.data, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+
+
+        Pic = image.scaled(width, height, Qt.KeepAspectRatio)
+
+        return Pic
+
+class HandGesture_Thread(AppFunction, QThread):
     Hand_Object = hg.HandGesture()
 
     ImageUpdate = Signal(QImage)
     TextUpdate = Signal(str)
     CamUpdate = Signal(QImage)
 
-    ThreadActive = False
-    ReadytoClose = False
+    def __init__(self):
+        super(AppFunction, self).__init__()
+        super().__init__()
 
     def run(self):
         self.ThreadActive = True
 
-        """self.socket_send = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                                self.socket_send.bind(("",10))
-                        
-                                self.socket_receive = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                                self.socket_receive.bind(("",20))
-                        
-                                self.socket_send.listen(10)
-                                self.conn_send,self.addr_send = self.socket_send.accept()
-                        
-                                print("send accepted")
-                        
-                                
-                                self.socket_receive.listen(10)
-                                self.conn_receive,self.addr_receive = self.socket_receive.accept()
-                        
-                                print("receive accepted")
-                        
-                                self.data = b""
-                                self.payload_size = struct.calcsize(">L")"""
-        
         while True:
             hg_image, hg_signal, hg_string  = self.Hand_Object.main()
 
-            self.connection.send_signal(hg_signal)
+            # cv2.imshow("", hg_image)
+            # cv2.waitKey(1)
 
-            cam_screen = self.connection.receive_image()
+            if AppFunction.hg_thread:
+                AppFunction.send_signal(hg_signal)
 
-            self.ImageUpdate.emit(convertToQImage(hg_image))
-            self.TextUpdate.emit(hg_string)
-            self.CamUpdate.emit(convertToQImage(cam_screen))
+                cam_screen = AppFunction.receive_image()
 
-        
-            #cv2.imshow("",cam_screen)
-            #cv2.waitKey(1)
+                self.ImageUpdate.emit(AppFunction.convertToQImage(hg_image, AppFunction.hg_size[0], AppFunction.hg_size[1]))
+                self.TextUpdate.emit(hg_string)
+                self.CamUpdate.emit(AppFunction.convertToQImage(cam_screen, AppFunction.hg_size[0], AppFunction.hg_size[1]))
 
-            if self.ThreadActive == False:
-                self.Hand_Object.cap.release()
-                break
-
+    def stop(self):
+        self.Hand_Object.cap.release()
         self.quit()
 
-        self.ReadytoClose = True
-    
-    def stop(self):
-        self.ThreadActive = False
+class SelfDriving_Thread(AppFunction, QThread):
+    ObjectDetection = od.ObjectDetection()
 
-    def receive_image(self):
-        while len(self.data) < self.payload_size:
-            self.data += self.conn_receive.recv(4096)
-        packed_msg_size = self.data[:self.payload_size]
-        self.data = self.data[self.payload_size:]
-        msg_size = struct.unpack(">L", packed_msg_size)[0]
-        while len(self.data) < msg_size:
-            self.data += self.conn_receive.recv(4096)
-        frame_data = self.data[:msg_size]
-        self.data = self.data[msg_size:]
-        frame=pickle.loads(frame_data, fix_imports=True, encoding="bytes")
-        frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-        print("received")
-        return frame
-
-class SelfDriving_Thread(QThread):
-    #def __init__(self, connection):
-        #self.connection = connection
-
-    #ObjectDetection = od.ObjectDetection()
-
-    #LaneFollowing = lf.LaneFollowing()
+    LaneFollowing = lf.LaneFollowing()
 
     od_ImageUpdate = Signal(QImage)
-    #lf_ImageUpdate = Signal(QImage)
+    lf_ImageUpdate = Signal(QImage)
+    sd_text = Signal(str)
 
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+    last_od_signal = "stop"
 
-    ThreadActive = False
-    ReadytoClose = False
+    def __init__(self):
+        super(AppFunction, self).__init__()
+        super().__init__()
 
     def run(self):
         self.ThreadActive = True
-        
+        signal = 0
+
         while True:
-            #frame = self.connection.receive_image()
+            if AppFunction.sd_thread:
+                AppFunction.send_signal(signal)
 
-            _,frame = SelfDriving_Thread.cap.read()
+                frame = AppFunction.receive_image()
 
-            od_image, od_signal = self.ObjectDetection.run(frame)
-            #lf_image, lf_signal = LaneFollowing.run(frame)
+                od_image, od_signal = self.ObjectDetection.run(frame)
+                lf_image, lf_signal = self.LaneFollowing.run(frame)
 
-            #cv2.imshow('Hand Gesture Recognition', frame)
+                if od_signal != "none":
+                    self.last_od_signal = od_signal
 
-            self.od_ImageUpdate.emit(convertToQImage(od_image))
-            #self.lf_ImageUpdate.emit(convertToQImage(lf_image))
+                print(lf_signal)
+                text, signal = SelfDriving_Thread.makeDecision(self.last_od_signal, lf_signal)
+                print(signal)
 
-            if self.ThreadActive == False:
-                SelfDriving_Thread.cap.release()
-                break
+                self.od_ImageUpdate.emit(AppFunction.convertToQImage(od_image, AppFunction.sd_main_size[0], AppFunction.sd_main_size[1]))
+                self.lf_ImageUpdate.emit(AppFunction.convertToQImage(lf_image, AppFunction.sd_sub_size[0], AppFunction.sd_sub_size[1]))
+                self.sd_text.emit(text)
 
+    def stop(self):
         self.quit()
 
-        self.ReadytoClose = True
-    
-    def stop(self):
-        self.ThreadActive = False
-
+    def makeDecision(od_signal, lf_signal):
+        if od_signal == "stop":
+            return "Stop", 8
+        elif lf_signal == "forward":
+            if od_signal == "fast":
+                return "Fast speed", 7
+            elif od_signal == "slow":
+                return "Slow speed", 1
+        elif lf_signal == "left":
+            return "Turning left", 5
+        elif lf_signal == "right":
+            return "Turning right", 6
+        elif lf_signal == "left-90":
+            return "Moving left", 4
+        elif lf_signal == "right-90":
+            return "Moving right", 3
     

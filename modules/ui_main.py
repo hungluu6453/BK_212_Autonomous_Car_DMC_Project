@@ -8,7 +8,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(941, 630)
+        MainWindow.resize(940, 630)
         MainWindow.setMinimumSize(QSize(940, 630))
         self.styleSheet = QWidget(MainWindow)
         self.styleSheet.setObjectName(u"styleSheet")
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
 "\n"
 "QWidget{\n"
 "	color: rgb(221, 221, 221);\n"
-"	font: 10pt \"Segoe UI\";\n"
+"	font: 10pt \"Roboto\";\n"
 "}\n"
 "\n"
 "/* /////////////////////////////////////////////////////////////////////////////////////////////////\n"
@@ -64,8 +64,8 @@ class Ui_MainWindow(object):
 "	background-position: centered;\n"
 "	background-repeat: no-repeat;\n"
 "}\n"
-"#titleLeftApp { font: 63 12pt \"Segoe UI Semibold\"; color: #D8DEE9; }\n"
-"#titleLeftDescription { font: 8pt \"Segoe UI\"; color: #81A1C1; }\n"
+"#titleLeftApp { font: 63 12pt \"Segoe UI Semibold\"; }\n"
+"#titleLeftDescription { font: 8pt \"Segoe UI\"; color: rgb(189, 147, 249); }\n"
 "\n"
 "/* MENUS */\n"
 "#topMenu .QPushButton {	\n"
@@ -155,7 +155,7 @@ class Ui_MainWindow(object):
 "/* Extra Content */\n"
 "#extraContent{\n"
 "	border"
-                        "-top: 3px solid rgb(40, 44, 52);\n"
+                        "-top: 0px solid rgb(40, 44, 52);\n"
 "}\n"
 "\n"
 "/* Extra Top Menus */\n"
@@ -571,7 +571,7 @@ class Ui_MainWindow(object):
         self.titleLeftApp.setObjectName(u"titleLeftApp")
         self.titleLeftApp.setGeometry(QRect(70, 8, 160, 20))
         font1 = QFont()
-        font1.setFamilies([u"Segoe UI Semibold"])
+        font1.setFamilies([u"Roboto Black"])
         font1.setPointSize(12)
         font1.setBold(False)
         font1.setItalic(False)
@@ -581,8 +581,9 @@ class Ui_MainWindow(object):
         self.titleLeftDescription.setObjectName(u"titleLeftDescription")
         self.titleLeftDescription.setGeometry(QRect(70, 27, 160, 16))
         self.titleLeftDescription.setMaximumSize(QSize(16777215, 16))
+        self.titleLeftDescription.setStyleSheet(u"color:#81A1C1;")
         font2 = QFont()
-        font2.setFamilies([u"Segoe UI"])
+        font2.setFamilies([u"Roboto"])
         font2.setPointSize(8)
         font2.setBold(False)
         font2.setItalic(False)
@@ -591,8 +592,7 @@ class Ui_MainWindow(object):
         self.topLogo = QLabel(self.topLogoInfo)
         self.topLogo.setObjectName(u"topLogo")
         self.topLogo.setGeometry(QRect(10, 5, 45, 45))
-        self.topLogo.setStyleSheet(u"padding-bottom: 5px;\n"
-"")
+        self.topLogo.setStyleSheet(u"padding-bottom: 5px;")
         self.topLogo.setPixmap(QPixmap(u":/images/images/images/hcmut_small.png"))
         self.topLogo.setAlignment(Qt.AlignCenter)
 
@@ -976,7 +976,7 @@ class Ui_MainWindow(object):
         self.handgesture_label = QLabel(self.handgesture)
         self.handgesture_label.setObjectName(u"handgesture_label")
         self.handgesture_label.setMaximumSize(QSize(16777215, 60))
-        self.handgesture_label.setStyleSheet(u"padding-top:15px; font-size: 30px;")
+        self.handgesture_label.setStyleSheet(u"padding-top:15px;")
         self.handgesture_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_17.addWidget(self.handgesture_label)
@@ -984,8 +984,8 @@ class Ui_MainWindow(object):
         self.hg_layout = QGridLayout()
         self.hg_layout.setObjectName(u"hg_layout")
         self.hg_layout.setHorizontalSpacing(5)
-        self.hg_layout.setVerticalSpacing(30)
-        self.hg_layout.setContentsMargins(40, 0, 40, 20)
+        self.hg_layout.setVerticalSpacing(10)
+        self.hg_layout.setContentsMargins(40, 40, 40, 20)
         self.car_cam = QLabel(self.handgesture)
         self.car_cam.setObjectName(u"car_cam")
         self.car_cam.setMinimumSize(QSize(320, 240))
@@ -999,10 +999,11 @@ class Ui_MainWindow(object):
 
         self.hg_message = QLabel(self.handgesture)
         self.hg_message.setObjectName(u"hg_message")
-        self.hg_message.setMaximumSize(QSize(16777215, 120))
+        self.hg_message.setMinimumSize(QSize(0, 100))
+        self.hg_message.setMaximumSize(QSize(16777215, 80))
         self.hg_message.setStyleSheet(u"background:#D8DEE9;\n"
 "border: 3px solid #2E3440;\n"
-"border-radius: 5px; color: #2E3440; font-size: 30px;")
+"border-radius: 5px; color: #2E3440; font-size: 20px")
         self.hg_message.setAlignment(Qt.AlignCenter)
 
         self.hg_layout.addWidget(self.hg_message, 1, 0, 1, 2)
@@ -1032,7 +1033,7 @@ class Ui_MainWindow(object):
         self.selfdriving_label.setMinimumSize(QSize(0, 60))
         self.selfdriving_label.setMaximumSize(QSize(16777215, 60))
         self.selfdriving_label.setFont(font)
-        self.selfdriving_label.setStyleSheet(u"padding-top:25px;")
+        self.selfdriving_label.setStyleSheet(u"padding-top:25px; font-size:24pt; font-weight:700; color:#eceff4;")
         self.selfdriving_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_18.addWidget(self.selfdriving_label)
@@ -1046,10 +1047,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.verticalLayout_sd1 = QVBoxLayout()
         self.verticalLayout_sd1.setObjectName(u"verticalLayout_sd1")
-        self.verticalLayout_sd1.setContentsMargins(80, -1, -1, -1)
+        self.verticalLayout_sd1.setContentsMargins(30, -1, 40, 30)
         self.sd_main_screen = QLabel(self.sd_layout)
         self.sd_main_screen.setObjectName(u"sd_main_screen")
-        self.sd_main_screen.setMinimumSize(QSize(320, 240))
+        self.sd_main_screen.setMinimumSize(QSize(360, 270))
         self.sd_main_screen.setMaximumSize(QSize(320, 240))
         self.sd_main_screen.setStyleSheet(u"background: #2E3440;\n"
 "border: 3px solid #2E3440;\n"
@@ -1058,24 +1059,13 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_sd1.addWidget(self.sd_main_screen)
 
-        self.sd_message = QLabel(self.sd_layout)
-        self.sd_message.setObjectName(u"sd_message")
-        self.sd_message.setMinimumSize(QSize(320, 120))
-        self.sd_message.setMaximumSize(QSize(320, 120))
-        self.sd_message.setStyleSheet(u"background: #D8DEE9;\n"
-"border: 3px solid #2E3440;\n"
-"border-radius: 5px;")
-        self.sd_message.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_sd1.addWidget(self.sd_message)
-
 
         self.horizontalLayout_6.addLayout(self.verticalLayout_sd1)
 
         self.verticalLayout_sd2 = QVBoxLayout()
-        self.verticalLayout_sd2.setSpacing(10)
+        self.verticalLayout_sd2.setSpacing(0)
         self.verticalLayout_sd2.setObjectName(u"verticalLayout_sd2")
-        self.verticalLayout_sd2.setContentsMargins(0, -1, 110, -1)
+        self.verticalLayout_sd2.setContentsMargins(0, -1, 80, -1)
         self.sd_subscreen1 = QLabel(self.sd_layout)
         self.sd_subscreen1.setObjectName(u"sd_subscreen1")
         sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -1083,8 +1073,8 @@ class Ui_MainWindow(object):
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.sd_subscreen1.sizePolicy().hasHeightForWidth())
         self.sd_subscreen1.setSizePolicy(sizePolicy3)
-        self.sd_subscreen1.setMinimumSize(QSize(240, 180))
-        self.sd_subscreen1.setMaximumSize(QSize(240, 180))
+        self.sd_subscreen1.setMinimumSize(QSize(280, 210))
+        self.sd_subscreen1.setMaximumSize(QSize(280, 210))
         self.sd_subscreen1.setStyleSheet(u"background: #2E3440;\n"
 "border: 3px solid #2E3440;\n"
 "border-radius: 5px;")
@@ -1093,16 +1083,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_sd2.addWidget(self.sd_subscreen1)
 
-        self.sd_subscreen2 = QLabel(self.sd_layout)
-        self.sd_subscreen2.setObjectName(u"sd_subscreen2")
-        self.sd_subscreen2.setMinimumSize(QSize(240, 180))
-        self.sd_subscreen2.setMaximumSize(QSize(240, 180))
-        self.sd_subscreen2.setStyleSheet(u"background: #2E3440;\n"
+        self.sd_message = QLabel(self.sd_layout)
+        self.sd_message.setObjectName(u"sd_message")
+        self.sd_message.setMinimumSize(QSize(280, 100))
+        self.sd_message.setMaximumSize(QSize(280, 100))
+        self.sd_message.setStyleSheet(u"background: #D8DEE9;\n"
 "border: 3px solid #2E3440;\n"
-"border-radius: 5px;")
-        self.sd_subscreen2.setAlignment(Qt.AlignCenter)
+"border-radius: 5px; color: #2E3440; font-size: 20px")
+        self.sd_message.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_sd2.addWidget(self.sd_subscreen2)
+        self.verticalLayout_sd2.addWidget(self.sd_message)
 
 
         self.horizontalLayout_6.addLayout(self.verticalLayout_sd2)
@@ -1173,7 +1163,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
         self.stackedWidget_2.setCurrentIndex(0)
 
 
@@ -1212,15 +1202,14 @@ class Ui_MainWindow(object):
         self.dark.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\">DARK</p></body></html>", None))
         self.switch_button.setText("")
         self.light.setText(QCoreApplication.translate("MainWindow", u"LIGHT", None))
-        self.handgesture_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:18pt; font-weight:700; color:#eceff4;\">HAND GESTURE MODE</span></p></body></html>", None))
+        self.handgesture_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:24pt; font-weight:700; color:#eceff4;\">HAND GESTURE MODE</span></p></body></html>", None))
         self.car_cam.setText(QCoreApplication.translate("MainWindow", u"Car Screen", None))
         self.hg_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
         self.screen_cam.setText(QCoreApplication.translate("MainWindow", u"Camera Screen", None))
-        self.selfdriving_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:18pt; font-weight:700; color:#eceff4;\">SELF DRVING MODE</span></p></body></html>", None))
+        self.selfdriving_label.setText(QCoreApplication.translate("MainWindow", u"SELF DRVING MODE", None))
         self.sd_main_screen.setText(QCoreApplication.translate("MainWindow", u"Main Screen", None))
+        self.sd_subscreen1.setText(QCoreApplication.translate("MainWindow", u"Sub Screen", None))
         self.sd_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
-        self.sd_subscreen1.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 1", None))
-        self.sd_subscreen2.setText(QCoreApplication.translate("MainWindow", u"Sub Screen 2", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"By: Team CacheHit - Ho Chi Minh City University of Technology", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.0", None))
     # retranslateUi

@@ -42,17 +42,29 @@ class UIFunctions(MainWindow):
         self.ui.screen_cam.setMaximumSize(QSize(640, 480))
         self.ui.hg_layout.setVerticalSpacing(70)
 
+        self.ui.selfdriving_label.setMinimumSize(QSize(0, 250))
+        self.ui.selfdriving_label.setMaximumSize(QSize(16777215, 250))
+        self.ui.selfdriving_label.setStyleSheet(u"font-size:50pt; padding-top: 50px;")
+
+        self.ui.appdescription.setStyleSheet(u"font-size:18pt; background-color: #2E3440;")
+        self.ui.welcome.setStyleSheet(u"font-size:24pt; background-color: #2E3440;")
+
+        self.ui.appname.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-family:'Copperplate'; font-size:56pt; font-weight:700; color:#81a1c1;\">Genesis</span></p></body></html>", None))
+        self.ui.appname.setMinimumSize(QSize(0, 200))
+        self.ui.appname.setMaximumSize(QSize(16777215, 200))
+
+        self.ui.teammember.setStyleSheet(u"font-size:24pt; background-color: #2E3440;")
+        self.ui.howtouse.setStyleSheet(u"font-size:18pt; background-color: #2E3440;")
+
         self.ui.sd_main_screen.setMinimumSize(QSize(640, 480))
         self.ui.sd_main_screen.setMaximumSize(QSize(640, 480))
-        self.ui.sd_subscreen1.setMinimumSize(QSize(360, 270))
-        self.ui.sd_subscreen1.setMaximumSize(QSize(360, 270))
-        self.ui.sd_subscreen2.setMinimumSize(QSize(360, 270))
-        self.ui.sd_subscreen2.setMaximumSize(QSize(360, 270))
-        self.ui.sd_message.setMinimumSize(QSize(640, 120))
-        self.ui.sd_message.setMaximumSize(QSize(640, 120))
-        self.ui.verticalLayout_sd2.setSpacing(70)
-        self.ui.verticalLayout_sd2.setContentsMargins(-1, -1, 250, -1)
-        self.ui.verticalLayout_sd1.setContentsMargins(250, -1, -1, -1)
+        self.ui.sd_subscreen1.setMinimumSize(QSize(480, 360))
+        self.ui.sd_subscreen1.setMaximumSize(QSize(480, 360))
+        self.ui.sd_message.setMinimumSize(QSize(480, 120))
+        self.ui.sd_message.setMaximumSize(QSize(480, 120))
+        self.ui.verticalLayout_sd2.setSpacing(0)
+        self.ui.verticalLayout_sd2.setContentsMargins(-1, -1, 180, -1)
+        self.ui.verticalLayout_sd1.setContentsMargins(180, -1, -1, -1)
 
     def restore(self):
 
@@ -64,17 +76,15 @@ class UIFunctions(MainWindow):
         self.ui.screen_cam.setMaximumSize(QSize(320, 240))
         self.ui.hg_layout.setVerticalSpacing(30)
 
-        self.ui.sd_main_screen.setMinimumSize(QSize(320, 240))
-        self.ui.sd_main_screen.setMaximumSize(QSize(320, 240))
-        self.ui.sd_subscreen1.setMinimumSize(QSize(240, 180))
-        self.ui.sd_subscreen1.setMaximumSize(QSize(240, 180))
-        self.ui.sd_subscreen2.setMinimumSize(QSize(240, 180))
-        self.ui.sd_subscreen2.setMaximumSize(QSize(240, 180))
-        self.ui.sd_message.setMinimumSize(QSize(320, 120))
-        self.ui.sd_message.setMaximumSize(QSize(320, 120))
+        self.ui.sd_main_screen.setMinimumSize(QSize(360, 270))
+        self.ui.sd_main_screen.setMaximumSize(QSize(360, 270))
+        self.ui.sd_subscreen1.setMinimumSize(QSize(280, 210))
+        self.ui.sd_subscreen1.setMaximumSize(QSize(280, 210))
+        self.ui.sd_message.setMinimumSize(QSize(280, 100))
+        self.ui.sd_message.setMaximumSize(QSize(280, 100))
         self.ui.verticalLayout_sd2.setSpacing(10)
-        self.ui.verticalLayout_sd2.setContentsMargins(-1, -1, 110, -1)
-        self.ui.verticalLayout_sd1.setContentsMargins(80, -1, -1, -1)
+        self.ui.verticalLayout_sd2.setContentsMargins(-1, -1, 80, -1)
+        self.ui.verticalLayout_sd1.setContentsMargins(30, 0, 40, 30)
             
 
     # RETURN STATUS
@@ -170,8 +180,8 @@ class UIFunctions(MainWindow):
             # MOVE WINDOW / MAXIMIZE / RESTORE
             def moveWindow(event):
                 # IF MAXIMIZED CHANGE TO NORMAL
-                if UIFunctions.returStatus(self):
-                    UIFunctions.maximize_restore(self)
+                #if UIFunctions.returStatus(self):
+                    #UIFunctions.maximize_restore(self)
                 # MOVE WINDOW
                 if event.buttons() == Qt.LeftButton:
                     self.move(self.pos() + event.globalPos() - self.dragPos)
@@ -196,10 +206,10 @@ class UIFunctions(MainWindow):
         self.ui.bgApp.setGraphicsEffect(self.shadow)
 
         # MINIMIZE
-        self.ui.minimizeAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
+        self.ui.minimizeAppBtn.clicked.connect(lambda: self.showMinimized())
 
         # MAXIMIZE/RESTORE
-        self.ui.maximizeRestoreAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
+        #self.ui.maximizeRestoreAppBtn.clicked.connect(lambda: UIFunctions.maximize_restore(self))
 
         # CLOSE APPLICATION
         #self.ui.closeAppBtn.clicked.connect(lambda: self.close())
