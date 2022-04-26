@@ -69,6 +69,7 @@ There are 2 main mode: Autonomous mode and User Mode. In Autonomous Mode, Raspbe
 * **code/**
     * **/HandGesture/** 
       `HandGesture.py`: car control with hand gesture.
+      
       `helper.py`: helper functions.
       **lan_connect/**: connect client server between computer and Raspberry.
       **gen_model/**: contain hand gesture models.
@@ -76,8 +77,11 @@ There are 2 main mode: Autonomous mode and User Mode. In Autonomous Mode, Raspbe
       `LaneFollowing.py`: Calculate steering angle based on image.
     * **ObjectDetection**
       `best.onxx`: Best yolov5n model for object detection.
+      
       `classes.txt`: list of road signs classes.
+      
       `ImageProcessing.py`:
+      
       `ObjectDetection.py`: Object detecion for road signs. 
       **yolov5**: contain yolov5 model.
 * **main.py** : Main function to run entire project.
