@@ -1,7 +1,7 @@
 # BK-212-Autonomous Car
 
 > An app leveraging computer vision technology to self-driving car.
-> Live demo [Genesis video]().
+> Live demo [Genesis video](https://drive.google.com/file/d/1Vacg_3sL917vWLnpjTNZr6MBRkrNgMtl/view?usp=sharing).
 
 ## Table of Contents
 * [Overview](#overview)
