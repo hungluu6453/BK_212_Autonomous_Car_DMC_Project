@@ -2,6 +2,7 @@
 
 > An app leveraging computer vision technology to self-driving car.
 > Live demo
+
 ![demo](https://media.giphy.com/media/xa5oJRdvS6hceaPQK4/giphy-downsized-large.gif)
 
 ## Table of Contents
